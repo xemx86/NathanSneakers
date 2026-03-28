@@ -23,15 +23,15 @@ export default async function ProductPage({
 
   /* Tekst audience */
   const audienceLabel =
-    product.audience === "men"
+    product.size_system === "men"
       ? lang === "es"
         ? "Hombre"
         : "Men"
-      : product.audience === "women"
+      : product.size_system === "women"
       ? lang === "es"
         ? "Mujer"
         : "Women"
-      : product.audience === "kids"
+      : product.size_system === "kids"
       ? lang === "es"
         ? "Niños"
         : "Kids"
