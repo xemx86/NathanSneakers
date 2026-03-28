@@ -96,8 +96,7 @@ const latestUi =
 <ProductSlider
   products={products}
   lang={lang}
-  titleMain={dict.home.sliderTitleMain}
-  titleAccent={dict.home.sliderTitleAccent}
+
 />
   </div>
 </section>
