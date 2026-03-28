@@ -74,7 +74,10 @@ function getSizeBadgeText(product: ProductRow, lang: Locale) {
     : `Size ${firstSize ?? ""}`;
 }
 
-function getAudienceLabel(audience: ProductRow["size_system"], lang: Locale)
+function getAudienceLabel(
+  sizeSystem: ProductRow["size_system"],
+  lang: Locale
+) {
   if (sizeSystem === "men") {
     return lang === "es" ? "Hombre" : "Men";
   }
@@ -88,7 +91,7 @@ function getAudienceLabel(audience: ProductRow["size_system"], lang: Locale)
   }
 
   if (sizeSystem === "men_women") {
-    return lang === "es" ? "Unisex" : "Unisex";
+    return "Unisex";
   }
 
   return "";
