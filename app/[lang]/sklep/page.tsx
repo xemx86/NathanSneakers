@@ -9,7 +9,6 @@ type SearchParams = {
   category?: string;
   color?: string;
   material?: string;
-  sizeSystem?: string;
   audience?: string;
   sort?: string;
 };
@@ -21,6 +20,11 @@ export default async function ShopPage({
   params: Promise<{ lang: Locale }>;
   searchParams: Promise<SearchParams>;
 }) {
+  const { lang } = await params;
+  const paramsQuery = await searchParams;
+
+  // dalej normalnie
+}{
   /* Pobranie aktualnego języka */
   const { lang } = await params;
 
