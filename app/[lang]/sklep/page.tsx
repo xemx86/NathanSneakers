@@ -19,7 +19,7 @@ export default async function ShopPage({
   searchParams,
 }: {
   params: Promise<{ lang: Locale }>;
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
   /* Pobranie aktualnego języka */
   const { lang } = await params;
