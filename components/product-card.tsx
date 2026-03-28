@@ -7,9 +7,10 @@ import { formatPrice } from "@/lib/utils";
 type Props = {
   product: ProductRow;
   lang: Locale;
+  isAdmin?: boolean; // Czy aktualny użytkownik jest adminem
 };
 
-/* 
+/*
   Funkcja pomocnicza:
   zwraca etykietę grupy docelowej produktu
 */
@@ -29,7 +30,7 @@ function getAudienceLabel(audience: ProductRow["size_system"], lang: Locale) {
   return "Unisex";
 }
 
-/* 
+/*
   Funkcja pomocnicza:
   buduje listę rozmiarów do pokazania na karcie produktu
 */
@@ -67,7 +68,7 @@ function getDisplaySizes(product: ProductRow, lang: Locale) {
 }
 
 /* Główny komponent pojedynczej karty produktu */
-export function ProductCard({ product, lang }: Props) {
+export function ProductCard({ product, lang, isAdmin = false }: Props) {
   /* Pobieramy listę rozmiarów do wyświetlenia */
   const displaySizes = getDisplaySizes(product, lang);
 
@@ -76,6 +77,16 @@ export function ProductCard({ product, lang }: Props) {
 
   return (
     <article className="product-card">
+      {/* Link do edycji widoczny tylko dla admina */}
+      {isAdmin ? (
+        <Link
+          href={`/${lang}/admin/products/${product.id}`}
+          className="product-card__admin-edit"
+        >
+          {lang === "es" ? "Editar" : "Edit"}
+        </Link>
+      ) : null}
+
       {/* Klikalne zdjęcie produktu */}
       <Link
         href={`/${lang}/produkt/${product.slug}`}
