@@ -65,13 +65,14 @@ function getProductPayload(formData: FormData) {
       : "unisex";
 
   /* Walidacja systemu rozmiarowego */
-  const size_system =
-    sizeSystemRaw === "men" ||
-    sizeSystemRaw === "women" ||
-    sizeSystemRaw === "kids" ||
- 
-    sizeSystemRaw === "men_women"
-      ? sizeSystemRaw
+/* Walidacja systemu rozmiarowego */
+const size_system =
+  sizeSystemRaw === "men" ||
+  sizeSystemRaw === "women" ||
+  sizeSystemRaw === "kids" ||
+  sizeSystemRaw === "men_women"
+    ? sizeSystemRaw
+    : "men";
       
 
   return {
