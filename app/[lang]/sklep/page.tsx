@@ -35,7 +35,7 @@ export default async function ShopPage({
     category: paramsQuery.category,
     color: paramsQuery.color,
     material: paramsQuery.material,
-    sizeSystem: paramsQuery.audience,
+    audience?: string;
     sort: paramsQuery.sort,
   });
 
@@ -82,7 +82,7 @@ export default async function ShopPage({
             category: paramsQuery.category ?? "",
             color: paramsQuery.color ?? "",
             material: paramsQuery.material ?? "",
-            sizeSystem: paramsQuery.audience ?? "",
+            audience?: string; ?? "",
             sort: paramsQuery.sort ?? "newest",
           }}
         />
