@@ -119,7 +119,7 @@ height: 12,
             <RotatingProductImage
               key={activeProduct.id}
               name={activeProduct.name}
-              imageUrl={activeProduct.image_url}
+              imageUrl={activeProduct.image_url ?? null}
               imageUrls={activeProduct.image_urls ?? []}
               intervalMs={1000}
             />
