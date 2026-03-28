@@ -80,7 +80,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
   return (
     <main className="flex min-h-[80vh] items-center justify-center px-6 py-10">
       <section className="w-full max-w-6xl rounded-[32px] border border-neutral-200 bg-white p-6 shadow-sm md:p-8">
-        {/* Górna sekcja z nagłówkiem */}
         <div className="mb-10 text-center">
           <div className="mb-3 inline-flex rounded-full bg-neutral-100 px-4 py-1 text-sm font-semibold text-[#c07a3d]">
             {badgeText}
@@ -101,7 +100,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
           </p>
         </div>
 
-        {/* Karty kontaktowe */}
         <div
           style={{
             display: "flex",
@@ -113,7 +111,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
             paddingBottom: "8px",
           }}
         >
-          {/* Telefon */}
           <a
             href="tel:+15705551234"
             style={{
@@ -137,7 +134,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
             </div>
           </a>
 
-          {/* WhatsApp */}
           <a
             href="https://wa.me/15705551234"
             target="_blank"
@@ -163,7 +159,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
             </div>
           </a>
 
-          {/* Messenger */}
           <a
             href="https://m.me/twojprofil"
             target="_blank"
