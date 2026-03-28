@@ -74,21 +74,24 @@ function getSizeBadgeText(product: ProductRow, lang: Locale) {
     : `Size ${firstSize ?? ""}`;
 }
 
-// Zwraca tekst dla badge grupy docelowej produktu
-function getAudienceLabel(sizeSystem: ProductRow["size_system"], lang: Locale)
-  if (audience === "men") {
+function getAudienceLabel(sizeSystem: ProductRow["size_system"], lang: Locale) {
+  if (sizeSystem === "men") {
     return lang === "es" ? "Hombre" : "Men";
   }
 
-  if (audience === "women") {
+  if (sizeSystem === "women") {
     return lang === "es" ? "Mujer" : "Women";
   }
 
-  if (audience === "kids") {
+  if (sizeSystem === "kids") {
     return lang === "es" ? "Niños" : "Kids";
   }
 
-  return "Unisex";
+  if (sizeSystem === "men_women") {
+    return lang === "es" ? "Unisex" : "Unisex";
+  }
+
+  return "";
 }
 
 // Główny komponent slidera produktów
