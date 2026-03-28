@@ -22,8 +22,7 @@ import { ProductClickLink } from "@/components/product-click-link";
 type Props = {
   products: ProductRow[];
   lang: Locale;
-  titleMain?: string;
-  titleAccent?: string;
+  title?: string; // 👈 DODAJ TO
 };
 
 // Zwraca pierwszy element z tablicy rozmiarów albo null
