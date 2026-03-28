@@ -75,7 +75,7 @@ function getSizeBadgeText(product: ProductRow, lang: Locale) {
 }
 
 // Zwraca tekst dla badge grupy docelowej produktu
-function getAudienceLabel(audience: ProductRow["audience"], lang: Locale) {
+function getAudienceLabel(sizeSystem: ProductRow["size_system"], lang: Locale)
   if (audience === "men") {
     return lang === "es" ? "Hombre" : "Men";
   }
