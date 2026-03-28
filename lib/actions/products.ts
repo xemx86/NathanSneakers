@@ -69,10 +69,10 @@ function getProductPayload(formData: FormData) {
     sizeSystemRaw === "men" ||
     sizeSystemRaw === "women" ||
     sizeSystemRaw === "kids" ||
-    sizeSystemRaw === "unisex" ||
+ 
     sizeSystemRaw === "men_women"
       ? sizeSystemRaw
-      : "unisex";
+      
 
   return {
     /* Podstawowe dane produktu */
