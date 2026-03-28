@@ -21,13 +21,15 @@ export default async function AdminPage({
   /* Pobranie aktualnie zalogowanego profilu */
   const profile = await getCurrentProfile();
 
-  /* Jeżeli użytkownik nie jest zalogowany, przekierowujemy do logowania */
-  if (!profile) {
-    redirect(`/${lang}/login`);
-  }
+const profile = await getCurrentProfile();
 
-  /* Jeżeli konto nie ma roli admin, blokujemy dostęp */
-  if (profile.role !== "admin") {
+if (!profile) {
+  redirect(`/${lang}/login`);
+}
+
+if (profile.role !== "admin") {
+  redirect(`/${lang}`);
+}
     return (
       <div className="container admin-page">
         <div className="info-card status-card">
