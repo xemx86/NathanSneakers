@@ -67,7 +67,8 @@ export default async function AdminPage({
 
       {/* Lista produktów w panelu admina */}
       <div style={{ marginTop: 32 }}>
-        <ProductAdminList products={products} lang={lang} />
+    /* Lista produktów w panelu admina */
+<ProductAdminList products={products} />
       </div>
     </div>
   );
