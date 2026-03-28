@@ -1,24 +1,46 @@
-/* Klient Supabase tylko po stronie serwera.
-   Używamy go do operacji administracyjnych, np. zapisu statystyk. */
+import { cookies } from "next/headers";
+import { createServerClient } from "@supabase/ssr";
+import type { ProfileRow } from "@/types/store";
 
-import { createClient } from "@supabase/supabase-js";
+export async function getCurrentProfile(): Promise<ProfileRow | null> {
+  const cookieStore = await cookies();
 
-/* Typ pomocniczy dla zmiennych środowiskowych */
-function getEnv(name: string): string {
-  const value = process.env[name];
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-  /* Jeśli brakuje zmiennej, rzucamy czytelny błąd */
-  if (!value) {
-    throw new Error(`Brakuje zmiennej środowiskowej: ${name}`);
+  if (!supabaseUrl || !supabaseKey) {
+    return null;
   }
 
-  return value;
-}
+  const supabase = createServerClient(supabaseUrl, supabaseKey, {
+    cookies: {
+      getAll() {
+        return cookieStore.getAll();
+      },
+      setAll() {
+        // w server component auth read-only wystarczy pusto
+      },
+    },
+  });
 
-/* Tworzymy klienta Supabase z kluczem serwisowym */
-export function createSupabaseAdmin() {
-  return createClient(
-    getEnv("NEXT_PUBLIC_SUPABASE_URL"),
-    getEnv("SUPABASE_SERVICE_ROLE_KEY")
-  );
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return null;
+  }
+
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("id, email, role")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (profileError || !profile) {
+    return null;
+  }
+
+  return profile as ProfileRow;
 }
