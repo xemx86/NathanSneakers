@@ -45,10 +45,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
   const dictionary = await getDictionary(lang as Locale);
 
-  const contactTitle = dictionary.contact?.title ?? "Contact.";
-  const contactAccent = dictionary.contact?.titleAccent ?? "us.";
-  const titleParts = contactTitle.split(contactAccent);
-
   return (
     <main className="flex min-h-[80vh] items-center justify-center px-6 py-10">
       <section className="w-full max-w-6xl rounded-[32px] border border-neutral-200 bg-white p-6 shadow-sm md:p-8">
@@ -57,22 +53,22 @@ export default async function ContactPage({ params }: ContactPageProps) {
             {dictionary.contact?.badge ?? "Contact"}
           </div>
 
- <h1 className="mx-auto max-w-3xl text-5xl font-black leading-[0.95] tracking-tight md:text-6xl">
-  <span style={{ color: "#1e1713" }}>
-    {dictionary.contact?.titleMain ?? "Contact"}
-  </span>{" "}
-  <span style={{ color: "#b37543" }}>
-    {dictionary.contact?.titleAccent ?? "us."}
-  </span>
-</h1>
+          <h1 className="mx-auto max-w-3xl text-5xl font-black leading-[0.95] tracking-tight md:text-6xl">
+            <span style={{ color: "#1e1713" }}>
+              {dictionary.contact?.titleMain ?? "Contact"}
+            </span>{" "}
+            <span style={{ color: "#b37543" }}>
+              {dictionary.contact?.titleAccent ?? "us."}
+            </span>
+          </h1>
 
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-600">
-  <span style={{ color: "#b37543", fontWeight: 700 }}>
-    Choose the contact method
-  </span>{" "}
-  <span style={{ color: "#1e1713", fontWeight: 700 }}>
-    that suits you best
-  </span>
+            <span style={{ color: "#b37543", fontWeight: 700 }}>
+              Choose the contact method
+            </span>{" "}
+            <span style={{ color: "#1e1713", fontWeight: 700 }}>
+              that suits you best
+            </span>
           </p>
         </div>
 
