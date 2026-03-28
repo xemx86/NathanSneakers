@@ -95,4 +95,8 @@
     "products": "Products",
     "items": "items"
   }
+  "cart": {
+  "title": "Your cart",
+  "subtitle": "Review your selected products"
+}
 }
