@@ -80,7 +80,7 @@ export function ProductCard({ product, lang, isAdmin = false }: Props) {
       {/* Link do edycji widoczny tylko dla admina */}
       {isAdmin ? (
         <Link
-          href={`/${lang}/admin/products/${product.id}`}
+         href={`/${lang}/admin?edit=${product.id}`}
           className="product-card__admin-edit"
         >
           {lang === "es" ? "Editar" : "Edit"}
