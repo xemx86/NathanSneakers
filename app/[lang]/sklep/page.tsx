@@ -83,7 +83,7 @@ const products = await listProducts({
             category: paramsQuery.category ?? "",
             color: paramsQuery.color ?? "",
             material: paramsQuery.material ?? "",
-            audience?: string; ?? "",
+            audience: paramsQuery.audience ?? "",
             sort: paramsQuery.sort ?? "newest",
           }}
         />
