@@ -1,0 +1,33 @@
+/* =========================
+   LAYOUT.CSS
+   Wspólny layout sekcji i nagłówków.
+   ========================= */
+
+/* Standardowa sekcja */
+.section {
+  padding: 28px 0 42px;
+}
+
+/* Węższa sekcja */
+.section--tight {
+  padding-top: 10px;
+}
+
+/* Wspólny nagłówek sekcji */
+.section__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+/* Wspólne style dużych nagłówków */
+.section__header h2,
+.store-heading h1,
+.cart-page-shell h1,
+.product-info h1 {
+  margin: 8px 0 0;
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  line-height: 1;
+}

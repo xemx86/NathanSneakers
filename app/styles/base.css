@@ -1,0 +1,184 @@
+/* =========================
+   BASE.CSS
+   Tutaj trzymamy:
+   - zmienne kolorów
+   - reset
+   - bazowe style elementów
+   - wspólne utility dla całej strony
+   ========================= */
+
+/* Zmienne globalne używane w całym projekcie */
+:root {
+  /* Główne tło strony */
+  --bg: #f5f1eb;
+
+  /* Jasne powierzchnie kart i paneli */
+  --surface: #fbf8f4;
+  --surface-2: #f1e8de;
+
+  /* Główny kolor tekstu */
+  --text: #1e1713;
+
+  /* Kolor tekstu pomocniczego */
+  --muted: #6f645d;
+
+  /* Standardowa ramka */
+  --border: rgba(54, 36, 26, 0.12);
+
+  /* Kolor akcentu marki */
+  --accent: #b37543;
+
+  /* Ciemniejszy akcent */
+  --accent-dark: #3b261b;
+
+  /* Standardowy cień kart */
+  --shadow: 0 14px 30px rgba(28, 18, 12, 0.08);
+
+  /* Promienie zaokrągleń */
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-pill: 999px;
+
+  /* Maksymalna szerokość głównego kontenera */
+  --container: 1320px;
+}
+
+/* Box sizing dla całej strony */
+* {
+  box-sizing: border-box;
+}
+
+/* Reset marginesów i paddingów dla html/body */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Płynne przewijanie po anchorach */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Główne ustawienia body */
+body {
+  background: radial-gradient(circle at top, #faf7f2 0%, var(--bg) 55%);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  line-height: 1.45;
+}
+
+/* Linki dziedziczą kolor rodzica i nie mają podkreślenia */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Obrazki są blokowe i nie wychodzą poza kontener */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Formularze dziedziczą font strony */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* Każdy button ma kursor pointer */
+button {
+  cursor: pointer;
+}
+
+/* Główny kontener aplikacji na pełną wysokość */
+.page-shell {
+  min-height: 100vh;
+}
+
+/* Standardowy kontener szerokości */
+.container {
+  width: min(var(--container), calc(100% - 32px));
+  margin: 0 auto;
+}
+
+/* Wspólne karty / panele w projekcie */
+.panel,
+.admin-card,
+.status-card,
+.store-heading,
+.login-card,
+.cart-summary,
+.cart-items,
+.product-info,
+.product-gallery,
+.filters {
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+}
+
+/* Przygaszone teksty pomocnicze */
+.footer-muted,
+.toolbar__meta,
+.store-heading__meta span,
+.breadcrumbs {
+  color: var(--muted);
+}
+
+/* Wspólne pigułki i badge */
+.eyebrow,
+.hero-badge,
+.badge,
+.tag,
+.size-pill,
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+/* Wariant akcentowy pigułek */
+.eyebrow,
+.hero-badge {
+  background: rgba(179, 117, 67, 0.12);
+  color: var(--accent);
+}
+
+/* Standardowy wariant pigułek */
+.badge,
+.tag,
+.size-pill,
+.chip {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* Aktywny wariant pigułki */
+.tag--accent,
+.size-pill--active {
+  background: rgba(179, 117, 67, 0.14);
+  color: var(--accent);
+  border-color: rgba(179, 117, 67, 0.25);
+}
+
+/* Pusty stan sekcji lub listy */
+.empty-state {
+  padding: 44px 24px;
+  text-align: center;
+  border: 1px dashed rgba(54, 36, 26, 0.18);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.44);
+}

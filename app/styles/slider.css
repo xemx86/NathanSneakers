@@ -1,0 +1,452 @@
+/* =========================
+   SLIDER.CSS
+   Cały slider produktów w jednym miejscu.
+   ========================= */
+
+/* Sekcja slidera */
+.slider-section {
+  padding: 8px 0 28px;
+}
+
+/* Wariant luxe sekcji */
+.slider-section--luxe {
+  margin-top: 24px;
+  padding: 32px 28px 28px;
+  border-radius: 36px;
+  border: 1px solid rgba(30, 23, 19, 0.08);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: none;
+  overflow: hidden;
+}
+
+/* Nagłówek slidera */
+.slider-header {
+  text-align: center;
+  margin-bottom: 36px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Domyślne h2 w nagłówku */
+.slider-header h2 {
+  margin: 0;
+  text-transform: none;
+}
+
+/* Wariant luxe nagłówka */
+.slider-header--luxe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+  text-align: center;
+}
+
+/* Opcjonalny badge nad sliderem */
+.slider-header__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(179, 117, 67, 0.1);
+  color: #b37543;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Zewnętrzny shell slidera */
+.slider-shell,
+.slider-shell--luxe {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Dodatkowy boczny padding */
+.slider-shell {
+  padding-left: 32px;
+  padding-right: 16px;
+}
+
+/* Tor slidera */
+.slider-track {
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 0 0 6px;
+  width: 100%;
+  scrollbar-width: none;
+}
+
+/* Ukrycie scrollbara */
+.slider-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Jeden slajd */
+.slider-slide {
+  flex: 0 0 20%;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+/* Karta slajdu */
+.slider-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Wariant luxe karty */
+.slider-card--luxe {
+  height: 100%;
+  border-radius: 30px;
+  border: 1px solid rgba(30, 23, 19, 0.08);
+  background: #f4efe9;
+  box-shadow: 0 14px 34px rgba(30, 23, 19, 0.07);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover karty */
+.slider-card--luxe:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 42px rgba(30, 23, 19, 0.11);
+}
+
+/* Wrapper części obrazkowej */
+.slider-card__media {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Zaokrąglenie górnej części karty */
+.slider-card__media--luxe {
+  border-radius: 2rem 2rem 0 0;
+}
+
+/* Link / wrapper obrazka */
+.slider-card__image {
+  display: block;
+  width: 100%;
+}
+
+/* Tło pod zdjęciem produktu */
+.slider-card__image--luxe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  padding: 14px;
+  background: linear-gradient(145deg, #231711, #513220);
+}
+
+/* Obrazek w sliderze */
+.slider-card__image--luxe img,
+.rotating-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: transparent;
+}
+
+/* Badge rozmiaru na zdjęciu */
+.slider-card__size-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  max-width: calc(100% - 28px);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(233, 223, 212, 0.96);
+  color: #b37543;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Dół karty */
+.slider-card__body {
+  padding-top: 14px;
+}
+
+/* Wariant luxe dołu karty */
+.slider-card__body--luxe {
+  padding: 18px 18px 20px;
+}
+
+/* Wewnętrzny wrapper na tekst */
+.slider-card__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* Rząd badge pod zdjęciem */
+.slider-card__badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+/* Pojedynczy badge */
+.slider-card__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(179, 117, 67, 0.12);
+  color: #b37543;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+/* Delikatniejszy wariant badge */
+.slider-card__badge--soft {
+  background: #f3efe9;
+  color: #3c3128;
+}
+
+/* Link z nazwą produktu */
+.slider-card__title {
+  display: inline-block;
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* Tytuł w wariancie luxe */
+.slider-card__title--luxe {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #111111;
+  text-decoration: none;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border-bottom: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* Hover tytułu */
+.slider-card__title--luxe:hover {
+  opacity: 0.85;
+  color: #111111;
+}
+
+/* Cena podstawowa */
+.slider-card__price {
+  margin-top: 8px;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* Cena w wariancie luxe */
+.slider-card__price--luxe {
+  margin-top: 0;
+  color: #111111;
+  font-size: 1.45rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Strzałki slidera */
+.slider-arrow {
+  position: absolute;
+  top: 38%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(30, 23, 19, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1e1713;
+  box-shadow: 0 12px 30px rgba(30, 23, 19, 0.1);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Hover strzałek */
+.slider-arrow:hover {
+  background: #fff7f1;
+  color: #b37543;
+}
+
+/* Lewa strzałka */
+.slider-arrow--left {
+  left: 16px;
+}
+
+/* Prawa strzałka */
+.slider-arrow--right {
+  right: 12px;
+}
+
+/* =========================
+   DOLNA NAWIGACJA SLIDERA
+   Kapsułki zamiast input range
+   ========================= */
+
+/* Kontener kropek / kapsułek */
+.slider-dots-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 4px 0 2px;
+}
+
+/* Pojedyncza kapsułka */
+.slider-dot {
+  width: 28px;
+  height: 8px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(30, 23, 19, 0.22);
+  box-shadow: 0 0 0 2px rgba(30, 23, 19, 0.22);
+  cursor: pointer;
+  transition:
+    width 0.22s ease,
+    background-color 0.22s ease,
+    transform 0.18s ease,
+    box-shadow 0.22s ease;
+}
+
+/* Hover kapsułki */
+.slider-dot:hover {
+  transform: translateY(-1px);
+  background: rgba(179, 117, 67, 0.55);
+  box-shadow: 0 0 0 2px rgba(179, 117, 67, 0.28);
+}
+
+/* Aktywna kapsułka */
+.slider-dot--active {
+  width: 52px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 2px rgba(30, 23, 19, 0.45);
+}
+
+/* Focus dla dostępności */
+.slider-dot:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(30, 23, 19, 0.45),
+    0 0 0 6px rgba(179, 117, 67, 0.18);
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1200px) {
+  .slider-slide {
+    flex: 0 0 25%;
+  }
+}
+
+@media (max-width: 992px) {
+  .slider-section--luxe {
+    padding: 28px 22px 24px;
+  }
+
+  .slider-slide {
+    flex: 0 0 33.3333%;
+  }
+
+  .slider-track {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .slider-shell {
+    padding-left: 18px;
+    padding-right: 12px;
+  }
+
+  .slider-section--luxe {
+    margin-top: 18px;
+    padding: 24px 16px 22px;
+    border-radius: 28px;
+  }
+
+  .slider-header {
+    margin-bottom: 24px;
+  }
+
+  .slider-header--luxe {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .slider-slide {
+    flex: 0 0 70%;
+  }
+
+  .slider-track {
+    gap: 14px;
+  }
+
+  .slider-card__body--luxe {
+    padding: 16px 16px 18px;
+  }
+
+  .slider-card__title--luxe {
+    font-size: 1.05rem;
+  }
+
+  .slider-card__price--luxe {
+    font-size: 1.2rem;
+  }
+
+  .slider-card__size-badge {
+    top: 12px;
+    right: 12px;
+    min-height: 30px;
+    padding: 7px 12px;
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .slider-dots-wrap {
+    gap: 8px;
+    margin-top: 22px;
+  }
+
+  .slider-dot {
+    width: 22px;
+    height: 7px;
+  }
+
+  .slider-dot--active {
+    width: 40px;
+  }
+}

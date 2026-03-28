@@ -1,0 +1,139 @@
+/* =========================
+   GŁÓWNY PLIK CSS
+   Ten plik importuje wszystkie mniejsze pliki stylów.
+   W tej wersji NIE ma importu Tailwinda,
+   bo w Twoim projekcie Tailwind nie jest teraz dostępny.
+   ========================= */
+
+/* Import pliku bazowego ze zmiennymi, resetem i wspólnymi stylami */
+@import "./styles/base.css";
+
+/* Import stylów nagłówka i nawigacji */
+@import "./styles/header.css";
+
+/* Import stylów przycisków i akcji */
+@import "./styles/buttons.css";
+
+/* Import wspólnego layoutu sekcji */
+@import "./styles/layout.css";
+
+/* Import sekcji hero ze strony głównej */
+@import "./styles/hero.css";
+
+/* Import kart produktów i prostego gridu produktów */
+@import "./styles/products.css";
+
+/* Import stylów strony sklepu i filtrów */
+@import "./styles/store.css";
+
+/* Import stylów panelu admina */
+@import "./styles/admin.css";
+
+/* Import stylów koszyka */
+@import "./styles/cart.css";
+
+/* Import stylów strony produktu i galerii */
+@import "./styles/product-page.css";
+
+/* Import stylów slidera produktów */
+@import "./styles/slider.css";
+
+/* Import wszystkich media queries i responsywności */
+@import "./styles/responsive.css";
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 4px;
+}
+
+/* subtelny brand */
+.product-brand {
+  font-size: 12px;
+  color: #9ca3af; /* szary */
+  letter-spacing: 0.05em;
+}
+
+/* nazwa produktu */
+.product-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111;
+  line-height: 1.2;
+}
+
+/* cena */
+.product-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+}
+
+/* badge */
+.product-badge {
+  margin-top: 4px;
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 999px;
+  background: #f3f4f6;
+  color: #111;
+  width: fit-content;
+}
+.slider-card__body--luxe {
+  padding: 18px 18px 20px;
+}
+
+.slider-card__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.slider-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.slider-card__title--luxe {
+  display: block;
+  text-decoration: none;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  font-weight: 600;
+  color: #111111;
+  letter-spacing: -0.01em;
+}
+
+.slider-card__title--luxe:hover {
+  opacity: 0.85;
+}
+
+.slider-card__price--luxe {
+  font-size: 1.45rem;
+  line-height: 1;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.02em;
+}
+
+.slider-card__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.slider-card__badge--soft {
+  background: #f3efe9;
+  color: #3c3128;
+}

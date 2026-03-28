@@ -1,0 +1,61 @@
+/* =========================
+   BUTTONS.CSS
+   Wspólne przyciski i akcje.
+   ========================= */
+
+/* Główne wspólne style przycisków */
+.button,
+.button-secondary,
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  transition: 0.2s ease;
+}
+
+/* Główny przycisk CTA */
+.button {
+  background: linear-gradient(135deg, #1c120d, #5b3a26);
+  color: white;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+}
+
+/* Hover głównego przycisku */
+.button:hover {
+  transform: translateY(-1px);
+}
+
+/* Przyciski drugorzędne */
+.button-secondary,
+.button-link {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: var(--border);
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Przycisk tekstowy bez tła */
+.text-button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--muted);
+}
+
+/* Rząd akcji */
+.inline-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Wariant, w którym dzieci rozciągają się równomiernie */
+.inline-actions--stretch > * {
+  flex: 1 1 0;
+}

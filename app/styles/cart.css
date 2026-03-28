@@ -1,0 +1,209 @@
+/* =========================
+   CART.CSS
+   Styl strony koszyka.
+   ========================= */
+
+/* Główna sekcja koszyka */
+.cart-page-shell {
+  padding-top: 24px;
+  padding-bottom: 40px;
+}
+
+/* Layout koszyka */
+.cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 18px;
+}
+
+/* Lista pozycji koszyka */
+.cart-items {
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+/* Jedna pozycja koszyka */
+.cart-item {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Ostatnia pozycja bez dolnej linii */
+.cart-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Zdjęcie produktu w koszyku */
+.cart-item__image {
+  background: #f7f5f2;
+  border-radius: 18px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+}
+
+/* Sam obrazek */
+.cart-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Górny i dolny rząd oraz podsumowanie */
+.cart-item__head,
+.cart-item__footer,
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Zawartość pozycji */
+.cart-item__content {
+  display: grid;
+  gap: 12px;
+}
+
+/* Stepper ilości */
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+/* Elementy steppera */
+.qty-stepper button,
+.qty-stepper span {
+  min-width: 38px;
+  height: 38px;
+  display: inline-grid;
+  place-items: center;
+}
+
+/* Przyciski steppera */
+.qty-stepper button {
+  border: 0;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+/* Podsumowanie koszyka */
+.cart-summary {
+  padding: 22px;
+  height: fit-content;
+  position: sticky;
+  top: 104px;
+}
+
+/* Wiersz podsumowania */
+.summary-row {
+  padding: 12px 0;
+}
+
+/* Wiersz całkowitej sumy */
+.summary-row--total {
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+  padding-top: 16px;
+}
+/* =========================
+   PREMIUM LOOK DLA KARTY SUMMARY
+   ========================= */
+
+/* Główna karta summary w wersji premium */
+.cart-summary--premium {
+  position: sticky;
+  top: 104px;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.78),
+    rgba(255, 255, 255, 0.58)
+  );
+}
+
+/* Delikatna poświata w tle */
+.cart-summary--premium::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(179, 117, 67, 0.16) 0%,
+    rgba(179, 117, 67, 0.07) 45%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+/* Badge nad tytułem */
+.cart-summary__eyebrow {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 14px;
+}
+
+/* Główny tytuł summary */
+.cart-summary__title {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 22px;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  line-height: 0.92;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+/* Pierwsza linia tytułu */
+.cart-summary__title-main {
+  color: #1e1713;
+}
+
+/* Druga linia tytułu z akcentem */
+.cart-summary__title-accent {
+  background: linear-gradient(135deg, #b37543 0%, #7b4a25 40%, #c98a4d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 10px 24px rgba(30, 23, 19, 0.06);
+}
+
+/* Wiersze podsumowania */
+.cart-summary--premium .summary-row {
+  position: relative;
+  z-index: 1;
+}
+
+/* Mocniejsze liczby */
+.cart-summary--premium .summary-row strong {
+  font-weight: 900;
+}
+
+/* Ostateczna suma bardziej widoczna */
+.cart-summary--premium .summary-row--total {
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.cart-summary--premium .summary-row--total strong {
+  font-size: 1.35rem;
+  color: #1e1713;
+}
+
+/* Opis pod przyciskiem */
+.cart-summary__note {
+  position: relative;
+  z-index: 1;
+  line-height: 1.65;
+}

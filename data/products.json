@@ -1,0 +1,127 @@
+[
+  {
+    "id": "50c6e189-08fd-4ca4-a278-a7f352eaab09",
+    "name": "wwq",
+    "slug": "qw",
+    "brand": "KickRush",
+    "category": "qww",
+    "color": "ww",
+    "material": "ee",
+    "description": "sadasdasdaasd",
+    "image_url": null,
+    "image_urls": [],
+    "price": 323,
+    "sale_price": null,
+    "sizes": [
+      "ede"
+    ],
+    "sizes_men": [],
+    "sizes_women": [],
+    "audience": "unisex",
+    "size_system": "unisex",
+    "is_featured": false,
+    "is_active": true,
+    "created_at": "2026-03-27T02:45:19.634Z"
+  },
+  {
+    "id": "ff59b5d5-c20f-4eae-8224-4288e5c4e4b0",
+    "name": "123",
+    "slug": "2222",
+    "brand": "KickRush",
+    "category": "222",
+    "color": "222",
+    "material": "222",
+    "description": "",
+    "image_url": null,
+    "image_urls": [],
+    "price": 222,
+    "sale_price": 222,
+    "sizes": [
+      "2"
+    ],
+    "sizes_men": [],
+    "sizes_women": [],
+    "audience": "unisex",
+    "size_system": "unisex",
+    "is_featured": false,
+    "is_active": true,
+    "created_at": "2026-03-27T02:45:03.786Z"
+  },
+  {
+    "id": "585c9ea3-676a-40e3-960e-9afec290efd6",
+    "name": "asd",
+    "slug": "asd",
+    "brand": "KickRush",
+    "category": "asas",
+    "color": "asas",
+    "material": "asa",
+    "description": "",
+    "image_url": "https://cdn-images.farfetch-contents.com/17/04/38/87/17043887_34208180_1000.jpg",
+    "image_urls": [
+      "https://cdn-images.farfetch-contents.com/17/04/38/87/17043887_34208181_1000.jpg"
+    ],
+    "price": 22,
+    "sale_price": null,
+    "sizes": [],
+    "audience": "unisex",
+    "is_featured": false,
+    "is_active": true,
+    "created_at": "2026-03-27T01:28:45.658Z",
+    "size_system": "men_women",
+    "sizes_men": [
+      "10"
+    ],
+    "sizes_women": [
+      "5"
+    ]
+  },
+  {
+    "id": "8c4776bf-e168-4300-8d50-2cc80a27c47f",
+    "name": "Normal",
+    "slug": "222",
+    "brand": "Adidas",
+    "category": "Man",
+    "color": "22",
+    "material": "22",
+    "description": "",
+    "image_url": "https://cdn.blazimg.com/600/product/0/6/064465-2001_6.webp",
+    "image_urls": [
+      "https://cdn.blazimg.com/600/product/0/6/064465-2001_7.webp"
+    ],
+    "price": 22,
+    "sale_price": null,
+    "sizes": [
+      "22"
+    ],
+    "audience": "men",
+    "is_featured": false,
+    "is_active": true,
+    "created_at": "2026-03-27T00:51:45.836Z"
+  },
+  {
+    "id": "ded947e6-f8ba-477f-b364-89ca55bccba4",
+    "name": "123",
+    "slug": "111",
+    "brand": "KickRush",
+    "category": "123",
+    "color": "2",
+    "material": "123",
+    "description": "",
+    "image_url": "https://cdn.blazimg.com/1800/product/a/d/adidas_js1001_6_footwear_photography_front_lateral_top_view_white-nw091725.webp",
+    "image_urls": [
+      "https://cdn.blazimg.com/1800/product/a/d/adidas_js1001_10_footwear_photography_mirrored_pair_view_white-nw091725.webp",
+      "https://cdn.blazimg.com/1800/product/a/d/adidas_js1001_3_footwear_photography_top_portrait_view_white-nw091725.webp",
+      "https://cdn.blazimg.com/1800/product/a/d/adidas_js1001_1_footwear_photography_side_lateral_center_view_white-nw091725.webp",
+      "https://cdn.blazimg.com/1800/product/a/d/adidas_js1001_4_footwear_photography_bottom_view_white-nw091725.webp"
+    ],
+    "price": 11,
+    "sale_price": null,
+    "sizes": [
+      "10"
+    ],
+    "audience": "unisex",
+    "is_featured": false,
+    "is_active": true,
+    "created_at": "2026-03-26T22:37:34.017Z"
+  }
+]

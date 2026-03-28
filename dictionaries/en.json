@@ -1,0 +1,98 @@
+{
+  "nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "cart": "Cart",
+    "admin": "Admin",
+    "login": "Login",
+    "logout": "Logout"
+  },
+"home": {
+  "badge": "Premium storefront for a modern footwear brand",
+  "title": "Buy shoes in a premium fashion style.",
+  "titleAccent": "premium fashion",
+  "description": "Discover premium sneakers selected for comfort, quality and modern style.",
+  "viewCollection": "View collection",
+  "manageProducts": "Manage products",
+  "featured": "Featured",
+  "startProducts": "Starter products",
+  "fullCatalog": "Full catalog",
+  "empty": "No products yet. Add them in the admin panel or run seed.sql.",
+  "sliderTitleMain": "New",
+  "sliderTitleAccent": "Arrivals",
+   "sliderTitleAccent2": "."
+},
+  "shop": {
+    "collection": "Collection",
+    "title": "Shop",
+    "description": "Filter products, build a cart and go to checkout without leaving the new layout.",
+    "products": "products",
+    "selectedModels": "Selected models",
+    "listingMeta": "Minimal premium listing"
+  },
+  "filters": {
+    "title": "Filters",
+    "search": "Search",
+    "searchPlaceholder": "e.g. barefoot",
+    "category": "Category",
+    "color": "Color",
+    "material": "Material",
+    "sort": "Sort",
+    "all": "All",
+    "apply": "Apply",
+    "clear": "Clear",
+    "newest": "Newest",
+    "priceAsc": "Price: low to high",
+    "priceDesc": "Price: high to low",
+    "nameAsc": "Name A–Z"
+  },
+  "product": {
+    "details": "Details",
+    "featured": "Featured",
+    "color": "Color",
+    "featuredBadge": "Featured",
+    "noDescription": "No product description.",
+    "chooseSize": "Choose size",
+    "addToCart": "Add to cart",
+    "addedToCart": "Added to cart",
+    "goToCart": "Go to cart"
+  },
+  "cart": {
+    "contactButton": "Contact to order"
+  },
+
+ "contact": {
+  "badge": "",
+  "titleMain": "Contact",
+  "titleAccent": "us.",
+  "description": "Choose the contact method that suits you best.",
+  "phone": "Phone",
+  "whatsapp": "WhatsApp",
+  "messenger": "Messenger",
+  "sendMessage": "Send message"
+},
+  "auth": {
+    "title": "Login",
+    "description": "Sign in with your Supabase Auth account. After assigning the admin role, you will get access to the admin panel.",
+    "login": "Login",
+    "signup": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "loggingIn": "Signing in...",
+    "creating": "Creating account...",
+    "confirmInfo": "Account created. If email confirmation is enabled, confirm your email and then sign in.",
+    "signInButton": "Sign in",
+    "signUpButton": "Create account"
+  },
+  "admin": {
+    "denied": "Access denied",
+    "deniedText": "The account is signed in, but it does not have the admin role. Assign the role in the profiles table.",
+    "backHome": "Back to home",
+    "title": "Store management",
+    "previewStore": "Preview store",
+    "checkCart": "Check cart",
+    "addProduct": "Add new product",
+    "products": "Products",
+    "items": "items"
+  }
+}

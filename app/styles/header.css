@@ -1,0 +1,144 @@
+/* =========================
+   HEADER.CSS
+   Tutaj trzymamy cały nagłówek i nawigację.
+   ========================= */
+
+/* Główny sticky header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(251, 248, 244, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Wewnętrzny układ headera */
+.site-header__inner {
+  width: min(var(--container), calc(100% - 32px));
+  margin: 0 auto;
+  min-height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+/* Link / wrapper marki */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Obrazek logo marki */
+.brand__logo {
+  height: auto;
+  width: 220px;
+  display: block;
+}
+
+/* Awaryjny znak marki, jeśli nie ma logo */
+.brand__mark {
+  width: 58px;
+  height: 58px;
+  border-radius: 20px;
+  display: inline-grid;
+  place-items: center;
+  background: linear-gradient(145deg, #1f1712, #5b3823);
+  color: white;
+  box-shadow: var(--shadow);
+  font-size: 1.1rem;
+}
+
+/* Akcent w tekście marki */
+.brand span span {
+  color: var(--accent);
+}
+
+/* Główna nawigacja */
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Pojedynczy link menu */
+.main-nav__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 1.05rem;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    transform 0.2s ease;
+  white-space: nowrap;
+}
+
+/* Hover linku menu */
+.main-nav__link:hover {
+  color: var(--accent);
+  background: rgba(179, 117, 67, 0.1);
+  border-color: rgba(179, 117, 67, 0.18);
+  transform: translateY(-1px);
+}
+
+/* Akcje po prawej stronie headera */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
+/* Wspólny kolor dla akcji */
+.header-actions a,
+.header-actions button,
+.header-actions span {
+  color: var(--muted);
+}
+
+/* Zerowanie buttonów w headerze */
+.header-actions button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+/* Link koszyka */
+.cart-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* Badge ilości produktów w koszyku */
+.cart-link span {
+  min-width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  display: inline-grid;
+  place-items: center;
+  background: #17110d;
+  color: white;
+  font-weight: 800;
+  font-size: 0.9rem;
+}

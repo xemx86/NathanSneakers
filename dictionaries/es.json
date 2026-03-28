@@ -1,0 +1,94 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "shop": "Tienda",
+    "cart": "Carrito",
+    "admin": "Admin",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión"
+  },
+"home": {
+  "badge": "Tienda premium para una marca moderna de calzado",
+  "title": "Compra zapatos con un estilo de moda premium.",
+  "titleAccent": "moda premium",
+  "description": "Descubre zapatillas premium seleccionadas por su comodidad, calidad y estilo moderno..",
+  "viewCollection": "Ver colección",
+  "manageProducts": "Gestionar productos",
+  "featured": "Destacado",
+  "startProducts": "Productos iniciales",
+  "fullCatalog": "Catálogo completo",
+  "empty": "Todavía no hay productos. Agrégalos en el panel de administración o ejecuta seed.sql.",
+  "sliderTitleMain": "Nuevas",
+  "sliderTitleAccent": "Llegadas",
+  "sliderTitleAccent2": "."
+},
+  "shop": {
+    "collection": "Colección",
+    "title": "Tienda",
+    "description": "Filtra productos, crea un carrito y pasa al checkout sin salir del nuevo diseño.",
+    "products": "productos",
+    "selectedModels": "Modelos seleccionados",
+    "listingMeta": "Listado premium minimalista"
+  },
+  "filters": {
+    "title": "Filtros",
+    "search": "Buscar",
+    "searchPlaceholder": "p. ej. barefoot",
+    "category": "Categoría",
+    "color": "Color",
+    "material": "Material",
+    "sort": "Ordenar",
+    "all": "Todos",
+    "apply": "Aplicar",
+    "clear": "Limpiar",
+    "newest": "Más nuevos",
+    "priceAsc": "Precio: menor a mayor",
+    "priceDesc": "Precio: mayor a menor",
+    "nameAsc": "Nombre A–Z"
+  },
+  "product": {
+    "details": "Detalles",
+    "featured": "Destacado",
+    "color": "Color",
+    "featuredBadge": "Destacado",
+    "noDescription": "Sin descripción del producto.",
+    "chooseSize": "Elegir talla",
+    "addToCart": "Añadir al carrito",
+    "addedToCart": "Añadido al carrito",
+    "goToCart": "Ir al carrito"
+  },
+"contact": {
+  "badge": "",
+  "titleMain": "Contácta",
+  "titleAccent": "nos.",
+  "description": "Elige el método de contacto que prefieras.",
+  "phone": "Teléfono",
+  "whatsapp": "WhatsApp",
+  "messenger": "Messenger",
+  "sendMessage": "Enviar mensaje"
+},
+  "auth": {
+    "title": "Iniciar sesión",
+    "description": "Inicia sesión con tu cuenta de Supabase Auth. Después de asignar el rol de admin, tendrás acceso al panel de administración.",
+    "login": "Entrar",
+    "signup": "Crear cuenta",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "loggingIn": "Iniciando sesión...",
+    "creating": "Creando cuenta...",
+    "confirmInfo": "Cuenta creada. Si la confirmación por correo está activada, confirma tu email y luego inicia sesión.",
+    "signInButton": "Entrar",
+    "signUpButton": "Crear cuenta"
+  },
+  "admin": {
+    "denied": "Acceso denegado",
+    "deniedText": "La cuenta ha iniciado sesión, pero no tiene el rol de admin. Asigna el rol en la tabla profiles.",
+    "backHome": "Volver al inicio",
+    "title": "Gestión de la tienda",
+    "previewStore": "Vista previa de la tienda",
+    "checkCart": "Ver carrito",
+    "addProduct": "Añadir producto",
+    "products": "Productos",
+    "items": "elementos"
+  }
+}

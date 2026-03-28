@@ -1,0 +1,236 @@
+/* =========================
+   RESPONSIVE.CSS
+   Wszystkie media queries projektu.
+   ========================= */
+
+/* Większy tablet / mniejszy desktop */
+@media (max-width: 1200px) {
+  /* Na tym progu slajdy robią się trochę szersze */
+  .slider-slide {
+    flex: 0 0 25%;
+  }
+}
+
+/* Tablet i mniejszy laptop */
+@media (max-width: 1100px) {
+  /* Przełączamy duże układy na jedną kolumnę */
+  .hero__grid,
+  .hero__grid--luxe,
+  .product-page__grid,
+  .cart-layout,
+  .store-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* Zdejmujemy sticky z filtrów i podsumowania koszyka */
+  .filters,
+  .cart-summary {
+    position: static;
+  }
+
+  /* Grid produktów przechodzi na 2 kolumny */
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  /* Elementy headera i nagłówków ustawiamy pionowo */
+  .site-header__inner,
+  .section__header,
+  .store-heading,
+  .admin-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Menu może się zawijać */
+  .main-nav {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Akcje headera mogą się zawijać */
+  .header-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Pasek cech w hero przechodzi na 1 kolumnę */
+  .feature-strip {
+    grid-template-columns: 1fr;
+  }
+
+  /* Teksty hero centrujemy */
+  .hero-copy,
+  .hero-copy p {
+    text-align: center;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Akcje i chipy centrujemy */
+  .inline-actions,
+  .chip-row {
+    justify-content: center;
+  }
+
+  /* Slajdy slidera stają się szersze */
+  .slider-slide {
+    flex: 0 0 33.3333%;
+  }
+
+  /* Lekko zmniejszamy nazwę i cenę w sliderze */
+  .slider-card__title--luxe {
+    font-size: 1.02rem;
+  }
+
+  .slider-card__price--luxe {
+    font-size: 1.12rem;
+  }
+}
+
+/* Mniejszy tablet */
+@media (max-width: 768px) {
+  /* Badge rozmiaru robi się trochę mniejszy */
+  .slider-card__size-badge {
+    top: 10px;
+    right: 10px;
+    padding: 7px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Telefon */
+@media (max-width: 640px) {
+  /* Kontener ma mniejsze marginesy boczne */
+  .container {
+    width: min(var(--container), calc(100% - 20px));
+  }
+
+  /* Zmniejszamy największe nagłówki */
+  .hero h1,
+  .hero-copy h1,
+  .section__header h2,
+  .cart-page-shell h1,
+  .store-heading h1,
+  .product-info h1 {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+  }
+
+  /* Logo robi się mniejsze */
+  .brand__logo {
+    height: 58px;
+    width: 180px;
+    display: block;
+  }
+
+  /* Grid produktów przechodzi na 1 kolumnę */
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Pozycja koszyka przechodzi na 1 kolumnę */
+  .cart-item {
+    grid-template-columns: 1fr;
+  }
+
+  /* Lista URL w adminie też przechodzi na 1 kolumnę */
+  .url-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Główne zdjęcie galerii robi się niższe */
+  .product-gallery__main {
+    min-height: 360px;
+  }
+
+  /* Strzałki galerii robią się mniejsze */
+  .product-gallery__arrow {
+    width: 52px;
+    height: 52px;
+    font-size: 2rem;
+  }
+
+  /* Korekta pozycji lewej strzałki */
+  .product-gallery__arrow--left {
+    left: 10px;
+  }
+
+  /* Korekta pozycji prawej strzałki */
+  .product-gallery__arrow--right {
+    right: 10px;
+  }
+
+  /* Opis hero trochę większy i luźniejszy */
+  .hero-copy p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Akcje ustawiamy pionowo */
+  .inline-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  /* Przyciski w akcjach zajmują pełną szerokość */
+  .inline-actions .button,
+  .inline-actions .button-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Mniejsze odstępy chipów */
+  .chip-row {
+    gap: 10px;
+  }
+
+  /* Chipy robią się trochę mniejsze */
+  .chip {
+    min-height: 38px;
+    padding: 0 14px;
+    font-size: 0.92rem;
+  }
+
+  /* Sekcja slidera ma mniejsze paddingi */
+  .slider-section--luxe {
+    padding: 24px 16px 22px;
+    border-radius: 28px;
+  }
+
+  /* Shell slidera ma mniejsze paddingi boczne */
+  .slider-shell {
+    padding-left: 22px;
+    padding-right: 10px;
+  }
+
+  /* Mniejszy gap między kartami */
+  .slider-track {
+    gap: 14px;
+  }
+
+  /* Na telefonie pokazujemy prawie jedną dużą kartę */
+  .slider-slide {
+    flex: 0 0 78%;
+  }
+
+  /* Dół kart ma mniejsze paddingi */
+  .slider-card__body--luxe {
+    padding: 14px 14px 18px;
+  }
+
+  /* Ukrywamy strzałki slidera na telefonie */
+  .slider-arrow {
+    display: none;
+  }
+
+  /* Suwak pod sliderem robi się węższy */
+  .slider-range {
+    width: min(300px, 84vw);
+  }
+}

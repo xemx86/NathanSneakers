@@ -1,0 +1,195 @@
+/* =========================
+   STORE.CSS
+   Strona sklepu i filtry.
+   ========================= */
+
+/* Główna sekcja strony sklepu */
+.store-page {
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+/* Nagłówek sklepu */
+.store-heading {
+  padding: 24px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+/* Prawa meta część nagłówka */
+.store-heading__meta {
+  text-align: right;
+}
+
+/* Liczba produktów */
+.store-heading__meta strong {
+  display: block;
+  font-size: 2rem;
+}
+
+/* Layout sklepu: filtry + produkty */
+.store-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 18px;
+}
+
+/* Panel filtrów */
+.filters {
+  padding: 18px;
+  position: sticky;
+  top: 104px;
+}
+
+/* Tytuł filtrów */
+.filters h3 {
+  margin: 0 0 14px;
+}
+
+/* Grupa filtrów */
+.filters__group {
+  display: grid;
+  gap: 12px;
+}
+
+/* Label w filtrach */
+.filters label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+/* Wspólne pola formularzy */
+.filters input,
+.filters select,
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--text);
+}
+
+/* Textarea */
+.field textarea {
+  min-height: 120px;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+/* Pasek narzędzi */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+/* Tytuł paska narzędzi */
+.toolbar h3 {
+  margin: 0;
+}
+/* =========================
+   STORE PAGE — PREMIUM HEADING
+   Kolor i styl liter w zakładce Shop
+   ========================= */
+
+/* Premium wariant głównego nagłówka sklepu */
+.store-heading--premium {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ozdobny glow / delikatna poświata w tle */
+.store-heading--premium::before {
+  content: "";
+  position: absolute;
+  inset: auto auto -40px -40px;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(179, 117, 67, 0.14) 0%,
+    rgba(179, 117, 67, 0.06) 40%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+/* Główny tytuł "Shop" */
+.store-heading__title {
+  margin: 10px 0 12px;
+}
+
+/* Premium styl liter podobny do hero */
+.store-heading__title--premium {
+  font-size: clamp(3rem, 7vw, 5rem);
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+}
+
+/* Główna część tytułu z gradientem */
+.store-heading__title-main {
+  display: inline-block;
+  background: linear-gradient(135deg, #b37543 0%, #7b4a25 32%, #1e1713 76%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 10px 24px rgba(30, 23, 19, 0.08);
+}
+
+/* Opis pod tytułem */
+.store-heading__description {
+  margin: 0;
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Licznik produktów po prawej */
+.store-heading__meta strong {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 900;
+  line-height: 1;
+  color: #1e1713;
+}
+
+.store-heading__meta span {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 1rem;
+}
+
+/* Tytuł sekcji listy produktów */
+.store-listing__title {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+/* Akcent kolorystyczny dla pierwszego słowa */
+.store-listing__title-accent {
+  color: var(--accent);
+}
+
+/* Delikatnie mocniejsza karta filtrów i listy */
+.filters.panel,
+.store-heading.panel {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.72),
+    rgba(255, 255, 255, 0.52)
+  );
+}
