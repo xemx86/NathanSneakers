@@ -170,9 +170,7 @@ export function ProductAdminForm({
           </label>
         </div>
       </div>
-/* =========================
-   OPIS PRODUKTU
-   ========================= */
+
 <div className="field">
   <label>
     Opis produktu
