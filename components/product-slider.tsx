@@ -156,33 +156,37 @@ function getVisibleDots() {
   }
 
   // Aktualizuje aktywny indeks podczas ręcznego scrollowania
-  function handleScroll() {
-    const track = trackRef.current;
-    if (!track) return;
+// Aktualizuje aktywny indeks podczas ręcznego scrollowania
+function handleScroll() {
+  const track = trackRef.current;
+  if (!track) return;
 
-    const slides = Array.from(
-      track.querySelectorAll<HTMLElement>(".slider-slide")
-    );
+  // Pobieramy wszystkie slajdy
+  const slides = Array.from(
+    track.querySelectorAll<HTMLElement>(".slider-slide")
+  );
 
-    if (!slides.length) return;
+  if (!slides.length) return;
 
-    const trackLeft = track.getBoundingClientRect().left;
+  // Aktualna pozycja scrolla poziomego
+  const currentScroll = track.scrollLeft;
 
-    let closestIndex = 0;
-    let closestDistance = Number.POSITIVE_INFINITY;
+  let closestIndex = 0;
+  let closestDistance = Number.POSITIVE_INFINITY;
 
-    // Szukamy slajdu najbliżej lewej krawędzi tracka
-    slides.forEach((slide, index) => {
-      const distance = Math.abs(slide.getBoundingClientRect().left - trackLeft);
+  // Szukamy slajdu, którego offsetLeft jest najbliżej aktualnego scrolla
+  slides.forEach((slide, index) => {
+    const distance = Math.abs(slide.offsetLeft - currentScroll);
 
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
-      }
-    });
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = index;
+    }
+  });
 
-    setActiveIndex(closestIndex);
-  }
+  // Ustawiamy aktywny indeks zgodnie z realną pozycją scrolla
+  setActiveIndex(closestIndex);
+}
 
   // Jeśli nie ma produktów, nie renderujemy slidera
   if (!validProducts.length) return null;
