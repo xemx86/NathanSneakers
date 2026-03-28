@@ -169,7 +169,7 @@ export function ProductSlider({
   if (!validProducts.length) return null;
 
   // Tytuł główny slidera
-  const headingMain = titleMain ?? (lang === "es" ? "Nuevas" : "New");
+
 
   // Druga część tytułu slidera
   const headingAccent =
