@@ -1,46 +1,30 @@
-import { cookies } from "next/headers";
-import { createServerClient } from "@supabase/ssr";
-import type { ProfileRow } from "@/types/store";
+import { redirect, notFound } from "next/navigation";
+import { LoginForm } from "@/components/login-form";
+import { isLocale, type Locale } from "@/lib/i18n";
+import { getCurrentProfile } from "@/lib/auth";
 
-export async function getCurrentProfile(): Promise<ProfileRow | null> {
-  const cookieStore = await cookies();
+type Props = {
+  params: Promise<{ lang: string }>;
+};
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+/* Strona logowania admina */
+export default async function LoginPage({ params }: Props) {
+  /* Pobranie języka z URL */
+  const { lang } = await params;
 
-  if (!supabaseUrl || !supabaseKey) {
-    return null;
+  /* Ochrona przed nieprawidłowym locale */
+  if (!isLocale(lang)) {
+    notFound();
   }
 
-  const supabase = createServerClient(supabaseUrl, supabaseKey, {
-    cookies: {
-      getAll() {
-        return cookieStore.getAll();
-      },
-      setAll() {
-        // w server component auth read-only wystarczy pusto
-      },
-    },
-  });
+  /* Sprawdzenie aktualnie zalogowanego profilu */
+  const profile = await getCurrentProfile();
 
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
-
-  if (userError || !user) {
-    return null;
+  /* Jeśli zalogowany admin już istnieje, przekieruj od razu do panelu */
+  if (profile?.role === "admin") {
+    redirect(`/${lang}/admin`);
   }
 
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("id, email, role")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  if (profileError || !profile) {
-    return null;
-  }
-
-  return profile as ProfileRow;
+  /* W przeciwnym razie pokaż formularz logowania */
+  return <LoginForm lang={lang as Locale} />;
 }
