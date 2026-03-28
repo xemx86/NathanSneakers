@@ -122,14 +122,14 @@ export function ProductAdminForm({
         <div className="field">
           <label>
             Kategoria
-            <input name="category" required defaultValue={product?.category} />
+            <input name="category" required defaultValue={product?.category ?? ""} />
           </label>
         </div>
 
         <div className="field">
           <label>
             Kolor
-            <input name="color" required defaultValue={product?.color} />
+            <input name="color" required defaultValue={product?.color ?? ""} />
           </label>
         </div>
       </div>
@@ -139,7 +139,7 @@ export function ProductAdminForm({
         <div className="field">
           <label>
             Materiał
-            <input name="material" required defaultValue={product?.material} />
+            <input name="material" required defaultValue={product?.material ?? ""} />
           </label>
         </div>
 
