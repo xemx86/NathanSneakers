@@ -139,7 +139,7 @@ export default async function ProductPage({
               image_url: product.image_url ?? null,
               sizes: product.sizes ?? [],
               price: product.price,
-              sale_price: product.sale_price,
+              sale_price: product.sale_price ?? null,
             }}
           />
         </article>
