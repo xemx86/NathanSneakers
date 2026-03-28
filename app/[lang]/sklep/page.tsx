@@ -3,6 +3,7 @@ import { ProductGrid } from "@/components/product-grid";
 import { listProducts, listTaxonomy } from "@/lib/products";
 import { Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/get-dictionary";
+import { getCurrentProfile } from "@/lib/auth"; // import profilu użytkownika
 
 type SearchParams = {
   q?: string;
@@ -28,6 +29,12 @@ export default async function ShopPage({
 
   /* Pobranie parametrów z URL */
   const paramsQuery = await searchParams;
+
+  /* Pobranie aktualnego profilu użytkownika */
+  const profile = await getCurrentProfile();
+
+  /* Sprawdzenie, czy aktualny użytkownik jest adminem */
+  const isAdmin = profile?.role === "admin";
 
   /* Pobranie produktów z uwzględnieniem filtrów */
   const products = await listProducts({
@@ -98,7 +105,8 @@ export default async function ShopPage({
             </div>
           </div>
 
-          <ProductGrid products={products} lang={lang} />
+          {/* Przekazujemy informację, czy user jest adminem */}
+          <ProductGrid products={products} lang={lang} isAdmin={isAdmin} />
         </section>
       </div>
     </div>
