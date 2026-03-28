@@ -1,5 +1,6 @@
-import { promises as fs } from "fs";
-import path from "path";
+import "server-only";
+
+import { createClient } from "@/utils/supabase/server";
 import { ProductRow } from "@/types/store";
 
 /* Typ opcji filtrowania listy produktów */
@@ -22,132 +23,174 @@ type ListOptions = {
   /* Filtr materiału */
   material?: string;
 
-  /* Filtr odbiorcy produktu: men / women / kids / unisex */
-  audience?: string;
+  /* Filtr systemu rozmiarowego: Men / Women / Men & Women */
+  sizeSystem?: string;
 
   /* Typ sortowania */
   sort?: string;
 };
 
-/* Ścieżka do lokalnego pliku z produktami */
-const productsFilePath = path.join(process.cwd(), "data", "products.json");
-
-/* Odczyt wszystkich produktów z pliku JSON */
+/* Pobranie wszystkich produktów z Supabase */
 export async function readProductsFile(): Promise<ProductRow[]> {
-  try {
-    /* Wczytanie pliku */
-    const file = await fs.readFile(productsFilePath, "utf-8");
+  /* Tworzymy klienta Supabase po stronie serwera */
+  const supabase = await createClient();
 
-    /* Parsowanie JSON */
-    const data = JSON.parse(file);
+  /* Pobieramy wszystkie produkty */
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .order("created_at", { ascending: false });
 
-    /* Zwracamy tablicę produktów albo pustą tablicę */
-    return Array.isArray(data) ? (data as ProductRow[]) : [];
-  } catch {
-    /* Jeśli plik nie istnieje albo JSON jest uszkodzony */
+  /* Jeśli coś poszło nie tak, zwracamy pustą tablicę */
+  if (error) {
+    console.error("Supabase readProductsFile error:", error.message);
     return [];
   }
+
+  /* Zwracamy dane albo pustą tablicę */
+  return (data ?? []) as ProductRow[];
 }
 
-/* Zapis wszystkich produktów do pliku JSON */
-export async function writeProductsFile(products: ProductRow[]): Promise<void> {
-  await fs.writeFile(productsFilePath, JSON.stringify(products, null, 2), "utf-8");
+/* Tymczasowy placeholder zamiast zapisu do pliku JSON
+   Na razie nie zapisujemy do Supabase z tego miejsca */
+export async function writeProductsFile(_products: ProductRow[]): Promise<void> {
+  throw new Error(
+    "writeProductsFile is no longer used. Products are now stored in Supabase."
+  );
 }
 
 /* Główna funkcja pobierająca listę produktów z filtrami */
 export async function listProducts(options: ListOptions = {}): Promise<ProductRow[]> {
-  /* Na start pobieramy tylko aktywne produkty */
-  let products = (await readProductsFile()).filter((product) => product.is_active);
+  /* Tworzymy klienta Supabase */
+  const supabase = await createClient();
+
+  /* Budujemy zapytanie od aktywnych produktów */
+  let query = supabase.from("products").select("*").eq("is_active", true);
 
   /* Filtr tylko dla produktów wyróżnionych */
   if (options.featuredOnly) {
-    products = products.filter((product) => product.is_featured);
-  }
-
-  /* Wyszukiwanie tekstowe po nazwie, marce i opisie */
-  if (options.search) {
-    const search = options.search.toLowerCase();
-
-    products = products.filter((product) =>
-      [product.name, product.brand, product.description]
-        .filter(Boolean)
-        .some((value) => String(value).toLowerCase().includes(search))
-    );
+    query = query.eq("is_featured", true);
   }
 
   /* Filtrowanie po kategorii */
   if (options.category) {
-    products = products.filter((product) => product.category === options.category);
+    query = query.eq("category", options.category);
   }
 
   /* Filtrowanie po kolorze */
   if (options.color) {
-    products = products.filter((product) => product.color === options.color);
+    query = query.eq("color", options.color);
   }
 
   /* Filtrowanie po materiale */
   if (options.material) {
-    products = products.filter((product) => product.material === options.material);
+    query = query.eq("material", options.material);
   }
 
-  /* Filtrowanie po odbiorcy produktu */
-  if (options.audience) {
-    products = products.filter((product) => product.audience === options.audience);
+  /* Filtrowanie po systemie rozmiarowym */
+  if (options.sizeSystem) {
+    query = query.eq("size_system", options.sizeSystem);
+  }
+
+  /* Wyszukiwanie tekstowe po nazwie, marce i opisie
+     Używamy ilike, żeby działało podobnie do wcześniejszego search */
+  if (options.search) {
+    const search = options.search.trim();
+
+    if (search) {
+      query = query.or(
+        `name.ilike.%${search}%,brand.ilike.%${search}%,description.ilike.%${search}%`
+      );
+    }
   }
 
   /* Sortowanie produktów */
   switch (options.sort) {
     case "price_asc":
       /* Cena rosnąco */
-      products = [...products].sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
+      query = query.order("price", { ascending: true });
       break;
 
     case "price_desc":
       /* Cena malejąco */
-      products = [...products].sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+      query = query.order("price", { ascending: false });
       break;
 
     case "name_asc":
       /* Nazwa alfabetycznie */
-      products = [...products].sort((a, b) => a.name.localeCompare(b.name));
+      query = query.order("name", { ascending: true });
       break;
 
     default:
       /* Domyślnie: najnowsze produkty pierwsze */
-      products = [...products].sort(
-        (a, b) =>
-          new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime()
-      );
+      query = query.order("created_at", { ascending: false });
       break;
   }
 
   /* Ograniczenie liczby wyników */
   if (options.limit) {
-    products = products.slice(0, options.limit);
+    query = query.limit(options.limit);
   }
 
-  return products;
+  /* Wykonujemy zapytanie */
+  const { data, error } = await query;
+
+  /* Obsługa błędu */
+  if (error) {
+    console.error("Supabase listProducts error:", error.message);
+    return [];
+  }
+
+  /* Zwracamy gotową listę produktów */
+  return (data ?? []) as ProductRow[];
 }
 
 /* Pobranie jednego produktu po slug */
 export async function getProductBySlug(slug: string): Promise<ProductRow | null> {
-  const products = await readProductsFile();
-  return products.find((item) => item.slug === slug && item.is_active) ?? null;
+  /* Tworzymy klienta Supabase */
+  const supabase = await createClient();
+
+  /* Pobieramy pojedynczy aktywny produkt */
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("slug", slug)
+    .eq("is_active", true)
+    .maybeSingle();
+
+  /* Jeśli błąd lub brak produktu, zwracamy null */
+  if (error) {
+    console.error("Supabase getProductBySlug error:", error.message);
+    return null;
+  }
+
+  return (data as ProductRow | null) ?? null;
 }
 
 /* Pobranie danych do filtrów */
 export async function listTaxonomy() {
-  /* Pobieramy większą pulę produktów */
+  /* Pobieramy większą pulę aktywnych produktów */
   const products = await listProducts({ limit: 500 });
 
   /* Unikalne kategorie */
-  const categories = [...new Set(products.map((item) => item.category).filter(Boolean))].sort();
+  const categories = [
+    ...new Set(products.map((item) => item.category).filter(Boolean)),
+  ].sort() as string[];
 
   /* Unikalne kolory */
-  const colors = [...new Set(products.map((item) => item.color).filter(Boolean))].sort();
+  const colors = [
+    ...new Set(products.map((item) => item.color).filter(Boolean)),
+  ].sort() as string[];
 
   /* Unikalne materiały */
-  const materials = [...new Set(products.map((item) => item.material).filter(Boolean))].sort();
+  const materials = [
+    ...new Set(products.map((item) => item.material).filter(Boolean)),
+  ].sort() as string[];
 
-  return { categories, colors, materials };
+  /* Unikalne systemy rozmiarowe */
+  const sizeSystems = [
+    ...new Set(products.map((item) => item.size_system).filter(Boolean)),
+  ].sort() as string[];
+
+  return { categories, colors, materials, sizeSystems };
 }
