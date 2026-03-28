@@ -172,8 +172,7 @@ export function ProductSlider({
 
 
   // Druga część tytułu slidera
-  const headingAccent =
-    titleAccent ?? (lang === "es" ? "Llegadas" : "Arrivals");
+  
 
   return (
     <section className="slider-section slider-section--luxe">
