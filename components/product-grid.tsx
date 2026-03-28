@@ -1,30 +1,23 @@
-import { ProductRow } from "@/types/store";
 import { ProductCard } from "@/components/product-card";
-import { Locale } from "@/lib/i18n";
+import type { ProductRow } from "@/types/store";
+import type { Locale } from "@/lib/i18n";
 
-export function ProductGrid({
-  products,
-  lang,
-}: {
+type Props = {
   products: ProductRow[];
   lang: Locale;
-}) {
-  /* Komunikat pustej listy zależny od wybranego języka */
-  const emptyMessage =
-    lang === "es"
-      ? "No hay productos para los filtros seleccionados."
-      : "No products found for the selected filters.";
+  isAdmin?: boolean; // informacja, czy user jest adminem
+};
 
-  /* Jeżeli nie ma produktów, pokazujemy komunikat */
-  if (products.length === 0) {
-    return <div className="empty-state">{emptyMessage}</div>;
-  }
-
-  /* Standardowy grid produktów */
+export function ProductGrid({ products, lang, isAdmin = false }: Props) {
   return (
     <div className="product-grid">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} lang={lang} />
+        <ProductCard
+          key={product.id}
+          product={product}
+          lang={lang}
+          isAdmin={isAdmin} // przekazujemy dalej do karty
+        />
       ))}
     </div>
   );
