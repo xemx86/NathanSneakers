@@ -12,5 +12,7 @@ export async function POST() {
   await supabase.auth.signOut();
 
   /* Przekierowanie po wylogowaniu */
-  return NextResponse.redirect(new URL("/", process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"));
+  return NextResponse.redirect(
+    new URL("/", process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000")
+  );
 }
