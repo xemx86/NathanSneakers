@@ -20,11 +20,6 @@ export default async function ShopPage({
   params: Promise<{ lang: Locale }>;
   searchParams: Promise<SearchParams>;
 }) {
-  const { lang } = await params;
-  const paramsQuery = await searchParams;
-
-  // dalej normalnie
-}{
   /* Pobranie aktualnego języka */
   const { lang } = await params;
 
@@ -35,14 +30,14 @@ export default async function ShopPage({
   const paramsQuery = await searchParams;
 
   /* Pobranie produktów z uwzględnieniem filtrów */
-const products = await listProducts({
-  q: paramsQuery.q,
-  category: paramsQuery.category,
-  color: paramsQuery.color,
-  material: paramsQuery.material,
-  sizeSystem: paramsQuery.audience,
-  sort: paramsQuery.sort,
-});
+  const products = await listProducts({
+    q: paramsQuery.q,
+    category: paramsQuery.category,
+    color: paramsQuery.color,
+    material: paramsQuery.material,
+    sizeSystem: paramsQuery.audience,
+    sort: paramsQuery.sort,
+  });
 
   /* Pobranie danych do filtrów */
   const taxonomy = await listTaxonomy();
@@ -57,15 +52,11 @@ const products = await listProducts({
 
           {/* Premium tytuł sekcji sklepu */}
           <h1 className="store-heading__title store-heading__title--premium">
-            <span className="store-heading__title-main">
-              {dict.shop.title}
-            </span>
+            <span className="store-heading__title-main">{dict.shop.title}</span>
           </h1>
 
           {/* Opis strony sklepu */}
-          <p className="store-heading__description">
-            {dict.shop.description}
-          </p>
+          <p className="store-heading__description">{dict.shop.description}</p>
         </div>
 
         {/* Licznik produktów */}
