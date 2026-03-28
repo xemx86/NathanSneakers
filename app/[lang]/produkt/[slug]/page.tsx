@@ -74,7 +74,7 @@ export default async function ProductPage({
         {/* Galeria produktu */}
         <ProductGallery
           name={product.name}
-          imageUrl={product.image_url}
+          imageUrl={product.image_url ?? null}
           imageUrls={product.image_urls ?? []}
         />
 
