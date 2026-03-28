@@ -45,8 +45,8 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
   const dictionary = await getDictionary(lang as Locale);
 
-  const contactTitle = dictionary.contact?.title ?? "Contact us.";
-  const contactAccent = dictionary.contact?.titleAccent ?? "us.";
+const titleMain = dictionary.contact?.titleMain ?? "Contact";
+const titleAccent = dictionary.contact?.titleAccent ?? "us";
   const titleParts = contactTitle.split(contactAccent);
 
   return (
