@@ -1,106 +1,160 @@
-create extension if not exists pgcrypto;
+import { notFound } from "next/navigation";
+import { getDictionary } from "@/lib/get-dictionary";
+import { isLocale, type Locale } from "@/lib/i18n";
 
-create table if not exists public.profiles (
-  id uuid primary key references auth.users(id) on delete cascade,
-  email text not null unique,
-  role text not null default 'customer' check (role in ('admin', 'customer')),
-  created_at timestamptz not null default now()
-);
+type ContactPageProps = {
+  params: Promise<{ lang: string }>;
+};
 
-create table if not exists public.products (
-  id uuid primary key default gen_random_uuid(),
-  name text not null,
-  slug text not null unique,
-  brand text not null default 'KickRush',
-  description text,
-  image_url text,
-  category text not null,
-  color text not null,
-  material text not null,
-  price numeric(10,2) not null check (price >= 0),
-  sale_price numeric(10,2) check (sale_price is null or sale_price >= 0),
-  sizes text[] not null default '{}',
-  is_featured boolean not null default false,
-  is_active boolean not null default true,
-  created_at timestamptz not null default now()
-);
-
-create or replace function public.handle_new_user()
-returns trigger
-language plpgsql
-security definer
-set search_path = public
-as $$
-begin
-  insert into public.profiles (id, email)
-  values (new.id, coalesce(new.email, ''));
-  return new;
-end;
-$$;
-
-drop trigger if exists on_auth_user_created on auth.users;
-create trigger on_auth_user_created
-after insert on auth.users
-for each row execute procedure public.handle_new_user();
-
-create or replace function public.is_admin()
-returns boolean
-language sql
-stable
-security definer
-set search_path = public
-as $$
-  select exists (
-    select 1
-    from public.profiles
-    where id = auth.uid()
-      and role = 'admin'
+function PhoneIcon() {
+  return (
+    <img
+      src="/icons/phone.png"
+      alt="Phone"
+      style={{ width: 120, height: 120, objectFit: "contain", display: "block" }}
+    />
   );
-$$;
+}
 
-alter table public.profiles enable row level security;
-alter table public.products enable row level security;
+function WhatsAppIcon() {
+  return (
+    <img
+      src="/icons/whatsapp.png"
+      alt="WhatsApp"
+      style={{ width: 120, height: 120, objectFit: "contain", display: "block" }}
+    />
+  );
+}
 
-drop policy if exists "profiles own row" on public.profiles;
-create policy "profiles own row"
-on public.profiles
-for select
-to authenticated
-using (auth.uid() = id);
+function MessengerIcon() {
+  return (
+    <img
+      src="/icons/messenger.png"
+      alt="Messenger"
+      style={{ width: 120, height: 120, objectFit: "contain", display: "block" }}
+    />
+  );
+}
 
-drop policy if exists "public read products" on public.products;
-create policy "public read products"
-on public.products
-for select
-to anon, authenticated
-using (is_active = true);
+export default async function ContactPage({ params }: ContactPageProps) {
+  const { lang } = await params;
 
-drop policy if exists "admins insert products" on public.products;
-create policy "admins insert products"
-on public.products
-for insert
-to authenticated
-with check (public.is_admin());
+  if (!isLocale(lang)) {
+    notFound();
+  }
 
-drop policy if exists "admins update products" on public.products;
-create policy "admins update products"
-on public.products
-for update
-to authenticated
-using (public.is_admin())
-with check (public.is_admin());
+  const dictionary = await getDictionary(lang as Locale);
 
-drop policy if exists "admins delete products" on public.products;
-create policy "admins delete products"
-on public.products
-for delete
-to authenticated
-using (public.is_admin());
--- Produkty — grupa odbiorcy rozmiarówki
-alter table products
-add column if not exists audience text default 'unisex';
+  const contactTitle = dictionary.contact?.title ?? "Contact.";
+  const contactAccent = dictionary.contact?.titleAccent ?? "us.";
+  const titleParts = contactTitle.split(contactAccent);
 
--- Produkty — dozwolone wartości
-alter table products
-add constraint products_audience_check
-check (audience in ('men', 'women', 'unisex'));
+  return (
+    <main className="flex min-h-[80vh] items-center justify-center px-6 py-10">
+      <section className="w-full max-w-6xl rounded-[32px] border border-neutral-200 bg-white p-6 shadow-sm md:p-8">
+        <div className="mb-10 text-center">
+          <div className="mb-3 inline-flex rounded-full bg-neutral-100 px-4 py-1 text-sm font-semibold text-[#c07a3d]">
+            {dictionary.contact?.badge ?? "Contact"}
+          </div>
+
+ <h1 className="mx-auto max-w-3xl text-5xl font-black leading-[0.95] tracking-tight md:text-6xl">
+  <span style={{ color: "#1e1713" }}>
+    {dictionary.contact?.titleMain ?? "Contact"}
+  </span>{" "}
+  <span style={{ color: "#b37543" }}>
+    {dictionary.contact?.titleAccent ?? "us."}
+  </span>
+</h1>
+
+          <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-600">
+  <span style={{ color: "#b37543", fontWeight: 700 }}>
+    Choose the contact method
+  </span>{" "}
+  <span style={{ color: "#1e1713", fontWeight: 700 }}>
+    that suits you best
+  </span>
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            gap: "32px",
+            overflowX: "auto",
+            paddingBottom: "8px",
+          }}
+        >
+          <a
+            href="tel:+15705551234"
+            style={{
+              minWidth: "220px",
+              textAlign: "left",
+              textDecoration: "none",
+              color: "inherit",
+              flexShrink: 0,
+            }}
+          >
+            <div style={{ marginBottom: "16px" }}>
+              <PhoneIcon />
+            </div>
+            <div style={{ fontSize: "20px", fontWeight: 700 }}>
+              {dictionary.contact?.phone ?? "Phone"}
+            </div>
+            <div style={{ marginTop: "6px", fontSize: "16px", color: "#b37543" }}>
+              +1 (570) 555-1234
+            </div>
+          </a>
+
+          <a
+            href="https://wa.me/15705551234"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              minWidth: "220px",
+              textAlign: "left",
+              textDecoration: "none",
+              color: "inherit",
+              flexShrink: 0,
+            }}
+          >
+            <div style={{ marginBottom: "16px" }}>
+              <WhatsAppIcon />
+            </div>
+            <div style={{ fontSize: "20px", fontWeight: 700 }}>
+              {dictionary.contact?.whatsapp ?? "WhatsApp"}
+            </div>
+            <div style={{ marginTop: "6px", fontSize: "16px", color: "#b37543" }}>
+              +1 (570) 555-1234
+            </div>
+          </a>
+
+          <a
+            href="https://m.me/twojprofil"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              minWidth: "220px",
+              textAlign: "left",
+              textDecoration: "none",
+              color: "inherit",
+              flexShrink: 0,
+            }}
+          >
+            <div style={{ marginBottom: "16px" }}>
+              <MessengerIcon />
+            </div>
+            <div style={{ fontSize: "20px", fontWeight: 700 }}>
+              {dictionary.contact?.messenger ?? "Messenger"}
+            </div>
+            <div style={{ marginTop: "6px", fontSize: "16px", color: "#b37543" }}>
+              {dictionary.contact?.sendMessage ?? "Send message"}
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+  );
+}
