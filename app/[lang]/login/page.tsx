@@ -1,6 +1,7 @@
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { redirect, notFound } from "next/navigation";
 import { LoginForm } from "@/components/login-form";
+import { isLocale, type Locale } from "@/lib/i18n";
+import { getCurrentProfile } from "@/lib/auth";
 
 type Props = {
   params: Promise<{ lang: string }>;
@@ -9,19 +10,17 @@ type Props = {
 export default async function LoginPage({ params }: Props) {
   const { lang } = await params;
 
-  // Tworzymy klienta Supabase po stronie serwera
-  const supabase = await createClient();
+  if (!isLocale(lang)) {
+    notFound();
+  }
 
-  // Pobieramy aktualnego użytkownika
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const profile = await getCurrentProfile();
 
-  // Jeśli użytkownik już jest zalogowany, nie pokazujemy formularza
-  if (user) {
+  // Jeśli user już jest zalogowany, przekieruj do admina
+  if (profile) {
     redirect(`/${lang}/admin`);
   }
 
-  // Jeśli nie jest zalogowany, pokazujemy tylko prosty ekran logowania
-  return <LoginForm lang={lang} />;
+  // Jeśli nie jest zalogowany, pokaż formularz
+  return <LoginForm lang={lang as Locale} />;
 }
