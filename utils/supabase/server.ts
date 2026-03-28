@@ -1,0 +1,30 @@
+// Tworzy klienta Supabase po stronie serwera.
+// Używaj tego w Server Components, Server Actions i route handlers.
+
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+
+export async function createClient() {
+  const cookieStore = await cookies();
+
+  return createServerClient(supabaseUrl, supabaseKey, {
+    cookies: {
+      getAll() {
+        return cookieStore.getAll();
+      },
+      setAll(cookiesToSet) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+          });
+        } catch {
+          // To może polecieć w Server Component i wtedy jest OK.
+          // Middleware zajmie się odświeżaniem sesji.
+        }
+      },
+    },
+  });
+}
