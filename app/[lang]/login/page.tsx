@@ -1,23 +1,27 @@
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 import { LoginForm } from "@/components/login-form";
-import { Locale } from "@/lib/i18n";
-import { getDictionary } from "@/lib/get-dictionary";
 
-export default async function LoginPage({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>;
-}) {
+type Props = {
+  params: Promise<{ lang: string }>;
+};
+
+export default async function LoginPage({ params }: Props) {
   const { lang } = await params;
-  const dict = await getDictionary(lang);
 
-  return (
-    <div className="container login-page">
-      <div className="login-card status-card">
-        <div className="eyebrow">{dict.auth.title}</div>
-        <h1 style={{ marginTop: 10, marginBottom: 12 }}>{dict.auth.title}</h1>
-        <p className="footer-muted">{dict.auth.description}</p>
-        <LoginForm lang={lang} />
-      </div>
-    </div>
-  );
+  // Tworzymy klienta Supabase po stronie serwera
+  const supabase = await createClient();
+
+  // Pobieramy aktualnego użytkownika
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // Jeśli użytkownik już jest zalogowany, nie pokazujemy formularza
+  if (user) {
+    redirect(`/${lang}/admin`);
+  }
+
+  // Jeśli nie jest zalogowany, pokazujemy tylko prosty ekran logowania
+  return <LoginForm lang={lang} />;
 }
