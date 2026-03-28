@@ -142,8 +142,8 @@ function getVisibleDots() {
     const target = slides[clampedIndex];
     if (!target) return;
 
-    // Wyliczamy pozycję docelowego slajdu względem tracka
-    const left = target.offsetLeft - track.offsetLeft;
+// Przewijamy dokładnie do pozycji docelowego slajdu
+const left = target.offsetLeft;
 
     // Płynne przewinięcie
     track.scrollTo({
