@@ -39,18 +39,36 @@ export default async function AdminPage({
 
   /* Szukamy produktu, który ma zostać otwarty do edycji */
   const productToEdit =
-    products.find((product) => product.id === editId) ?? null;
+    products.find((product) => product.id === editId) ?? undefined;
+
+  /* Tryb formularza:
+     - update, jeśli znaleźliśmy produkt do edycji
+     - create, jeśli otwieramy pusty formularz dodawania */
+  const formMode = productToEdit ? "update" : "create";
 
   return (
     <div className="container">
-      {/* Formularz dostaje produkt do edycji */}
+      {/* Link powrotu do sklepu */}
+      <div style={{ marginBottom: 20 }}>
+        <Link href={`/${lang}/sklep`} className="button-secondary">
+          {lang === "es" ? "Volver a la tienda" : "Back to shop"}
+        </Link>
+      </div>
+
+      {/* Formularz:
+          - key wymusza odświeżenie komponentu przy zmianie produktu
+          - mode decyduje czy dodajemy czy edytujemy
+          - product przekazuje konkretny produkt do edycji */}
       <ProductAdminForm
-        lang={lang}
-        initialProduct={productToEdit}
+        key={productToEdit?.id ?? "create-product"}
+        mode={formMode}
+        product={productToEdit}
       />
 
       {/* Lista produktów w panelu admina */}
-      <ProductAdminList products={products} lang={lang} />
+      <div style={{ marginTop: 32 }}>
+        <ProductAdminList products={products} lang={lang} />
+      </div>
     </div>
   );
 }
