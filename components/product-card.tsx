@@ -13,7 +13,7 @@ type Props = {
   Funkcja pomocnicza:
   zwraca etykietę grupy docelowej produktu
 */
-function getAudienceLabel(audience: ProductRow["audience"], lang: Locale) {
+function getAudienceLabel(audience: ProductRow["size_system"], lang: Locale) {
   if (audience === "men") {
     return lang === "es" ? "Hombre" : "Men";
   }
