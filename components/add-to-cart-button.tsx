@@ -33,7 +33,7 @@ export function AddToCartButton({
       slug: product.slug,
       name: product.name,
       brand: product.brand,
-      imageUrl: product.image_url,
+      imageUrl: product.image_url ?? null,
       size: product.sizes?.[0] || undefined,
       price: product.sale_price ?? product.price,
     });
