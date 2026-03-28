@@ -66,15 +66,16 @@ function getProductPayload(formData: FormData) {
       : "unisex";
 
   /* Walidacja systemu rozmiarowego */
-/* Walidacja systemu rozmiarowego */
 const size_system =
-  sizeSystemRaw === "men" ||
-  sizeSystemRaw === "women" ||
-  sizeSystemRaw === "kids" ||
-  sizeSystemRaw === "men_women"
-    ? sizeSystemRaw
-    : "men";
-      
+  (
+    sizeSystemRaw === "men" ||
+    sizeSystemRaw === "women" ||
+    sizeSystemRaw === "kids" ||
+    sizeSystemRaw === "men_women"
+      ? sizeSystemRaw
+      : "men"
+    
+  ) as ProductSizeSystem;
 
   return {
     /* Podstawowe dane produktu */
@@ -153,7 +154,7 @@ export async function createProductAction(
       return { status: "error", message: "Produkt z takim slug już istnieje." };
     }
 
-    const newProduct = {
+    const newProduct: ProductRow = {
       id: randomUUID(),
       ...payload,
       is_active: true,
