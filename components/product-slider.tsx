@@ -98,8 +98,6 @@ function getAudienceLabel(sizeSystem: ProductRow["size_system"], lang: Locale) {
 export function ProductSlider({
   products,
   lang,
-  titleMain,
-  titleAccent,
 }: Props) {
   // Ref do tracka slidera, żeby móc przewijać programowo
   const trackRef = useRef<HTMLDivElement | null>(null);
