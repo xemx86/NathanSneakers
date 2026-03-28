@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { getCurrentProfile } from "@/lib/auth";
 import { listProducts, writeProductsFile } from "@/lib/products";
 import { parseSizes } from "@/lib/utils";
-import type { ProductRow } from "@/types/store";
+import type { ProductRow, ProductSizeSystem } from "@/types/store";
 
 export type ProductActionState = {
   status: "idle" | "success" | "error";
@@ -154,12 +154,12 @@ export async function createProductAction(
       return { status: "error", message: "Produkt z takim slug już istnieje." };
     }
 
-    const newProduct: ProductRow = {
-      id: randomUUID(),
-      ...payload,
-      is_active: true,
-      created_at: new Date().toISOString(),
-    };
+const newProduct: ProductRow = {
+  id: randomUUID(),
+  ...payload,
+  is_active: true,
+  created_at: new Date().toISOString(),
+};
 
     await writeProductsFile([newProduct, ...products]);
 
