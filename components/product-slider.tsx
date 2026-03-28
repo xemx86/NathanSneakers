@@ -74,7 +74,7 @@ function getSizeBadgeText(product: ProductRow, lang: Locale) {
     : `Size ${firstSize ?? ""}`;
 }
 
-function getAudienceLabel(sizeSystem: ProductRow["size_system"], lang: Locale) {
+function getAudienceLabel(audience: ProductRow["size_system"], lang: Locale)
   if (sizeSystem === "men") {
     return lang === "es" ? "Hombre" : "Men";
   }
@@ -204,7 +204,7 @@ const headingAccent = lang === "es" ? "Llegadas" : "Arrivals";
             const sizeBadgeText = getSizeBadgeText(product, lang);
 
             // Tekst badge z grupą docelową
-            const audienceLabel = getAudienceLabel(product.audience, lang);
+            const audienceLabel = getAudienceLabel(product.size_system, lang);;
 
             return (
               <div
