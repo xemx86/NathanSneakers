@@ -2,10 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { listProducts, getProductBySlug } from "@/lib/products";
 import { getCurrentProfile } from "@/lib/auth";
-import {
-  getTotalPageViews,
-  getTopViewedProducts,
-} from "@/lib/analytics";
+import { getTotalPageViews, getTopViewedProducts } from "@/lib/analytics";
 import { ProductAdminForm } from "@/components/product-admin-form";
 import { ProductAdminList } from "@/components/product-admin-list";
 import { Locale } from "@/lib/i18n";
@@ -15,36 +12,20 @@ export default async function AdminPage({
 }: {
   params: Promise<{ lang: Locale }>;
 }) {
-  /* Pobranie aktualnego języka */
+  /* Pobranie aktualnego języka z parametru trasy */
   const { lang } = await params;
 
   /* Pobranie aktualnie zalogowanego profilu */
   const profile = await getCurrentProfile();
 
-const profile = await getCurrentProfile();
+  /* Jeśli użytkownik nie jest zalogowany, przekieruj na stronę logowania */
+  if (!profile) {
+    redirect(`/${lang}/login`);
+  }
 
-if (!profile) {
-  redirect(`/${lang}/login`);
-}
-
-if (profile.role !== "admin") {
-  redirect(`/${lang}`);
-}
-    return (
-      <div className="container admin-page">
-        <div className="info-card status-card">
-          <h1>Brak dostępu</h1>
-          <p className="footer-muted">
-            Konto jest zalogowane, ale nie ma roli admin. Nadaj rolę w tabeli
-            <code> profiles</code>.
-          </p>
-
-          <Link className="button" href={`/${lang}`}>
-            Wróć na start
-          </Link>
-        </div>
-      </div>
-    );
+  /* Jeśli użytkownik jest zalogowany, ale nie ma roli admin, wyrzuć go poza panel */
+  if (profile.role !== "admin") {
+    redirect(`/${lang}`);
   }
 
   /* Pobranie listy produktów do panelu admina */
@@ -53,12 +34,13 @@ if (profile.role !== "admin") {
   /* Pobranie łącznej liczby wyświetleń strony */
   const totalPageViews = await getTotalPageViews();
 
-  /* Pobranie surowego rankingu najczęściej oglądanych produktów */
+  /* Pobranie rankingu najczęściej oglądanych produktów */
   const topViewedProductsRaw = await getTopViewedProducts(10);
 
-  /* Łączymy slug produktu z nazwą produktu */
+  /* Zamiana slugów na czytelne nazwy produktów */
   const topViewedProducts = await Promise.all(
     topViewedProductsRaw.map(async (item) => {
+      /* Szukamy produktu po slug, żeby zamiast samego slug wyświetlić nazwę */
       const product = await getProductBySlug(item.slug);
 
       return {
@@ -69,10 +51,11 @@ if (profile.role !== "admin") {
     })
   );
 
+  /* Główny widok panelu admina */
   return (
     <div className="container admin-page">
       <div className="admin-stack">
-        {/* Główna karta nagłówka panelu admina */}
+        {/* Górna karta z informacją o zalogowanym adminie */}
         <section className="admin-card">
           <div className="admin-toolbar">
             <div>
@@ -88,10 +71,12 @@ if (profile.role !== "admin") {
             </div>
 
             <div className="inline-actions">
+              {/* Szybkie przejście do sklepu */}
               <Link href={`/${lang}/sklep`} className="button-secondary">
                 Podejrzyj sklep
               </Link>
 
+              {/* Szybkie przejście do koszyka */}
               <Link href={`/${lang}/koszyk`} className="button-secondary">
                 Sprawdź koszyk
               </Link>
@@ -99,7 +84,7 @@ if (profile.role !== "admin") {
           </div>
         </section>
 
-        {/* Karta z ogólną analityką */}
+        {/* Karta z podstawową analityką strony */}
         <section className="admin-card">
           <div className="admin-toolbar">
             <div>
@@ -117,7 +102,7 @@ if (profile.role !== "admin") {
               gap: 16,
             }}
           >
-            {/* Łączna liczba wyświetleń */}
+            {/* Box z łączną liczbą wyświetleń */}
             <div
               style={{
                 padding: 20,
@@ -159,11 +144,13 @@ if (profile.role !== "admin") {
               gap: 12,
             }}
           >
+            {/* Jeśli nie ma danych, pokaż pusty komunikat */}
             {topViewedProducts.length === 0 ? (
               <div className="footer-muted">
                 Brak danych o wyświetleniach produktów.
               </div>
             ) : (
+              /* Jeśli dane są, pokaż listę top produktów */
               topViewedProducts.map((item, index) => (
                 <div
                   key={item.slug}
@@ -206,61 +193,18 @@ if (profile.role !== "admin") {
           <ProductAdminForm mode="create" />
         </section>
 
-return (
-  <div>
-    {/* Główne opakowanie strony admina */}
-    <div>
-
-      {/* Ranking produktów */}
-      <section className="admin-card">
-        <div className="admin-toolbar">
-          <div>
-            <h2>Najczęściej oglądane produkty</h2>
-            <div className="footer-muted">
-              Ranking oparty na wejściach na stronę produktu
+        {/* Lista wszystkich produktów */}
+        <section className="admin-card">
+          <div className="admin-toolbar">
+            <div>
+              <h2>Produkty</h2>
+              <div className="footer-muted">{products.length} pozycji</div>
             </div>
           </div>
-        </div>
 
-        <div style={{ marginTop: 16, display: "grid", gap: 12 }}>
-          {topViewedProducts.length === 0 ? (
-            <div className="footer-muted">
-              Brak danych o wyświetleniach produktów.
-            </div>
-          ) : (
-            topViewedProducts.map((item, index) => (
-              <div key={item.slug}>
-                <div>
-                  <div>{index + 1}. {item.name}</div>
-                  <div className="footer-muted">{item.slug}</div>
-                </div>
-                <div>{item.views}</div>
-              </div>
-            ))
-          )}
-        </div>
-      </section>
-
-      {/* Formularz */}
-      <section className="admin-card">
-        <h2>Dodaj nowy produkt</h2>
-        <ProductAdminForm mode="create" />
-      </section>
-
-      {/* Lista produktów */}
-      <section className="admin-card">
-        <div className="admin-toolbar">
-          <div>
-            <h2>Produkty</h2>
-            <div className="footer-muted">
-              {products.length} pozycji
-            </div>
-          </div>
-        </div>
-
-        <ProductAdminList products={products} />
-      </section>
-
+          <ProductAdminList products={products} />
+        </section>
+      </div>
     </div>
-  </div>
-);
+  );
+}
