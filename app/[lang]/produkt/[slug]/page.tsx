@@ -136,7 +136,7 @@ export default async function ProductPage({
               slug: product.slug,
               name: product.name,
               brand: product.brand,
-              image_url: product.image_url,
+              image_url: product.image_url ?? null,
               sizes: product.sizes ?? [],
               price: product.price,
               sale_price: product.sale_price,
