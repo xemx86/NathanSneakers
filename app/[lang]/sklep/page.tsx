@@ -9,7 +9,7 @@ type SearchParams = Promise<{
   category?: string;
   color?: string;
   material?: string;
-  audience?: string;
+  sizeSystem?: string;
   sort?: string;
 }>;
 
@@ -82,7 +82,7 @@ export default async function ShopPage({
             category: paramsQuery.category ?? "",
             color: paramsQuery.color ?? "",
             material: paramsQuery.material ?? "",
-            audience: paramsQuery.audience ?? "",
+            sizeSystem: paramsQuery.audience ?? "",
             sort: paramsQuery.sort ?? "newest",
           }}
         />
