@@ -72,7 +72,7 @@ export function ProductCard({ product, lang }: Props) {
   const displaySizes = getDisplaySizes(product, lang);
 
   /* Pobieramy etykietę grupy docelowej */
-  const audienceLabel = getAudienceLabel(product.audience, lang);
+  const audienceLabel = getAudienceLabel(product.sizeSystem, lang);
 
   return (
     <article className="product-card">
