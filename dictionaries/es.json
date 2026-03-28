@@ -7,21 +7,21 @@
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión"
   },
-"home": {
-  "badge": "Tienda premium para una marca moderna de calzado",
-  "title": "Compra zapatos con un estilo de moda premium.",
-  "titleAccent": "moda premium",
-  "description": "Descubre zapatillas premium seleccionadas por su comodidad, calidad y estilo moderno..",
-  "viewCollection": "Ver colección",
-  "manageProducts": "Gestionar productos",
-  "featured": "Destacado",
-  "startProducts": "Productos iniciales",
-  "fullCatalog": "Catálogo completo",
-  "empty": "Todavía no hay productos. Agrégalos en el panel de administración o ejecuta seed.sql.",
-  "sliderTitleMain": "Nuevas",
-  "sliderTitleAccent": "Llegadas",
-  "sliderTitleAccent2": "."
-},
+  "home": {
+    "badge": "Tienda premium para una marca moderna de calzado",
+    "title": "Compra zapatos con un estilo de moda premium.",
+    "titleAccent": "moda premium",
+    "description": "Descubre zapatillas premium seleccionadas por su comodidad, calidad y estilo moderno.",
+    "viewCollection": "Ver colección",
+    "manageProducts": "Gestionar productos",
+    "featured": "Destacado",
+    "startProducts": "Productos iniciales",
+    "fullCatalog": "Catálogo completo",
+    "empty": "Todavía no hay productos. Agrégalos en el panel de administración o ejecuta seed.sql.",
+    "sliderTitleMain": "Nuevas",
+    "sliderTitleAccent": "Llegadas",
+    "sliderTitleAccent2": "."
+  },
   "shop": {
     "collection": "Colección",
     "title": "Tienda",
@@ -57,16 +57,21 @@
     "addedToCart": "Añadido al carrito",
     "goToCart": "Ir al carrito"
   },
-"contact": {
-  "badge": "",
-  "titleMain": "Contácta",
-  "titleAccent": "nos.",
-  "description": "Elige el método de contacto que prefieras.",
-  "phone": "Teléfono",
-  "whatsapp": "WhatsApp",
-  "messenger": "Messenger",
-  "sendMessage": "Enviar mensaje"
-},
+  "cart": {
+    "title": "Tu carrito",
+    "subtitle": "Revisa los productos seleccionados",
+    "contactButton": "Contactar para pedir"
+  },
+  "contact": {
+    "badge": "",
+    "titleMain": "Contácta",
+    "titleAccent": "nos.",
+    "description": "Elige el método de contacto que prefieras.",
+    "phone": "Teléfono",
+    "whatsapp": "WhatsApp",
+    "messenger": "Messenger",
+    "sendMessage": "Enviar mensaje"
+  },
   "auth": {
     "title": "Iniciar sesión",
     "description": "Inicia sesión con tu cuenta de Supabase Auth. Después de asignar el rol de admin, tendrás acceso al panel de administración.",
@@ -91,8 +96,4 @@
     "products": "Productos",
     "items": "elementos"
   }
-  "cart": {
-  "title": "Your cart",
-  "subtitle": "Review your selected products"
-}
 }
