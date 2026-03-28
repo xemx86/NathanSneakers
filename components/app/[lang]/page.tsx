@@ -100,7 +100,6 @@ export default async function HomePage({
           <ProductSlider
             products={products}
             lang={lang}
-            title={lang === "es" ? "Nuevos productos" : "New Arrivals"}
           />
         </div>
       </section>
