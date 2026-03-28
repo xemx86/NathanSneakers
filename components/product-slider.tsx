@@ -172,7 +172,8 @@ export function ProductSlider({
 
 
   // Druga część tytułu slidera
-  
+  const headingMain = lang === "es" ? "Nuevas" : "New";
+const headingAccent = lang === "es" ? "Llegadas" : "Arrivals";
 
   return (
     <section className="slider-section slider-section--luxe">
