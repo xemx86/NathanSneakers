@@ -206,18 +206,61 @@ if (profile.role !== "admin") {
           <ProductAdminForm mode="create" />
         </section>
 
-        {/* Lista produktów */}
-        <section className="admin-card">
-          <div className="admin-toolbar">
-            <div>
-              <h2>Produkty</h2>
-              <div className="footer-muted">{products.length} pozycji</div>
+return (
+  <div>
+    {/* Główne opakowanie strony admina */}
+    <div>
+
+      {/* Ranking produktów */}
+      <section className="admin-card">
+        <div className="admin-toolbar">
+          <div>
+            <h2>Najczęściej oglądane produkty</h2>
+            <div className="footer-muted">
+              Ranking oparty na wejściach na stronę produktu
             </div>
           </div>
+        </div>
 
-          <ProductAdminList products={products} />
-        </section>
-      </div>
+        <div style={{ marginTop: 16, display: "grid", gap: 12 }}>
+          {topViewedProducts.length === 0 ? (
+            <div className="footer-muted">
+              Brak danych o wyświetleniach produktów.
+            </div>
+          ) : (
+            topViewedProducts.map((item, index) => (
+              <div key={item.slug}>
+                <div>
+                  <div>{index + 1}. {item.name}</div>
+                  <div className="footer-muted">{item.slug}</div>
+                </div>
+                <div>{item.views}</div>
+              </div>
+            ))
+          )}
+        </div>
+      </section>
+
+      {/* Formularz */}
+      <section className="admin-card">
+        <h2>Dodaj nowy produkt</h2>
+        <ProductAdminForm mode="create" />
+      </section>
+
+      {/* Lista produktów */}
+      <section className="admin-card">
+        <div className="admin-toolbar">
+          <div>
+            <h2>Produkty</h2>
+            <div className="footer-muted">
+              {products.length} pozycji
+            </div>
+          </div>
+        </div>
+
+        <ProductAdminList products={products} />
+      </section>
+
     </div>
-  );
-}
+  </div>
+);
