@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { getCurrentProfile } from "@/lib/auth";
 import { listProducts, writeProductsFile } from "@/lib/products";
 import { parseSizes } from "@/lib/utils";
+import type { ProductRow } from "@/types/store";
 
 export type ProductActionState = {
   status: "idle" | "success" | "error";
