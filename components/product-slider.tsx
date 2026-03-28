@@ -99,6 +99,25 @@ function getAudienceLabel(
 
 // Główny komponent slidera produktów
 export function ProductSlider({ products, lang }: Props) {
+  const MAX_DOTS = 5;
+
+function getVisibleDots() {
+  const total = validProducts.length;
+
+  if (total <= MAX_DOTS) {
+    return validProducts.map((_, i) => i);
+  }
+
+  let start = Math.max(0, activeIndex - Math.floor(MAX_DOTS / 2));
+  let end = start + MAX_DOTS;
+
+  if (end > total) {
+    end = total;
+    start = total - MAX_DOTS;
+  }
+
+  return Array.from({ length: end - start }, (_, i) => start + i);
+}
   // Ref do tracka slidera, żeby móc przewijać programowo
   const trackRef = useRef<HTMLDivElement | null>(null);
 
@@ -265,30 +284,29 @@ export function ProductSlider({ products, lang }: Props) {
       </div>
 
       {/* Dolna nawigacja slidera w formie kapsułek */}
-      <div
-        className="slider-dots-wrap"
-        aria-label={
-          lang === "es" ? "Navegación del slider" : "Slider navigation"
-        }
-      >
-        {validProducts.map((product, index) => {
-          // Sprawdzamy, czy dany slajd jest aktualnie aktywny
-          const isActive = index === activeIndex;
+<div
+  className="slider-dots-wrap"
+  aria-label={
+    lang === "es" ? "Navegación del slider" : "Slider navigation"
+  }
+>
+  {getVisibleDots().map((index) => {
+    const isActive = index === activeIndex;
 
-          return (
-            <button
-              key={`${product.id}-dot-${index}`}
-              type="button"
-              aria-label={`${
-                lang === "es" ? "Ir al slide" : "Go to slide"
-              } ${index + 1}`}
-              aria-pressed={isActive}
-              className={`slider-dot ${isActive ? "slider-dot--active" : ""}`}
-              onClick={() => scrollToIndex(index)}
-            />
-          );
-        })}
-      </div>
+    return (
+      <button
+        key={`dot-${index}`}
+        type="button"
+        aria-label={`${
+          lang === "es" ? "Ir al slide" : "Go to slide"
+        } ${index + 1}`}
+        aria-pressed={isActive}
+        className={`slider-dot ${isActive ? "slider-dot--active" : ""}`}
+        onClick={() => scrollToIndex(index)}
+      />
+    );
+  })}
+</div>
     </section>
   );
 }
