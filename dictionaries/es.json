@@ -91,4 +91,8 @@
     "products": "Productos",
     "items": "elementos"
   }
+  "cart": {
+  "title": "Your cart",
+  "subtitle": "Review your selected products"
+}
 }
