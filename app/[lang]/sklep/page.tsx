@@ -4,14 +4,15 @@ import { listProducts, listTaxonomy } from "@/lib/products";
 import { Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/get-dictionary";
 
-type SearchParams = Promise<{
+type SearchParams = {
   q?: string;
   category?: string;
   color?: string;
   material?: string;
   sizeSystem?: string;
+  audience?: string;
   sort?: string;
-}>;
+};
 
 export default async function ShopPage({
   params,
@@ -30,14 +31,14 @@ export default async function ShopPage({
   const paramsQuery = await searchParams;
 
   /* Pobranie produktów z uwzględnieniem filtrów */
-  const products = await listProducts({
-    search: paramsQuery.q,
-    category: paramsQuery.category,
-    color: paramsQuery.color,
-    material: paramsQuery.material,
-    audience?: string;
-    sort: paramsQuery.sort,
-  });
+const products = await listProducts({
+  q: paramsQuery.q,
+  category: paramsQuery.category,
+  color: paramsQuery.color,
+  material: paramsQuery.material,
+  sizeSystem: paramsQuery.audience,
+  sort: paramsQuery.sort,
+});
 
   /* Pobranie danych do filtrów */
   const taxonomy = await listTaxonomy();
