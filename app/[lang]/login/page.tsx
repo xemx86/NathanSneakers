@@ -12,19 +12,19 @@ export default async function LoginPage({ params }: Props) {
   /* Pobranie języka z URL */
   const { lang } = await params;
 
-  /* Ochrona przed nieprawidłowym locale */
+  /* Blokada dla nieprawidłowego locale */
   if (!isLocale(lang)) {
     notFound();
   }
 
-  /* Sprawdzenie aktualnie zalogowanego profilu */
+  /* Sprawdzenie aktualnie zalogowanego użytkownika */
   const profile = await getCurrentProfile();
 
-  /* Jeśli zalogowany admin już istnieje, przekieruj od razu do panelu */
+  /* Jeśli user jest już adminem, przerzucamy go do panelu */
   if (profile?.role === "admin") {
     redirect(`/${lang}/admin`);
   }
 
-  /* W przeciwnym razie pokaż formularz logowania */
+  /* W przeciwnym razie pokazujemy formularz logowania */
   return <LoginForm lang={lang as Locale} />;
 }
