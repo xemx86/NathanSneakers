@@ -22,7 +22,6 @@ import { ProductClickLink } from "@/components/product-click-link";
 type Props = {
   products: ProductRow[];
   lang: Locale;
-  title?: string; // 👈 DODAJ TO
 };
 
 // Zwraca pierwszy element z tablicy rozmiarów albo null
@@ -74,6 +73,7 @@ function getSizeBadgeText(product: ProductRow, lang: Locale) {
     : `Size ${firstSize ?? ""}`;
 }
 
+// Zwraca tekst dla badge grupy docelowej produktu
 function getAudienceLabel(
   sizeSystem: ProductRow["size_system"],
   lang: Locale
@@ -98,10 +98,7 @@ function getAudienceLabel(
 }
 
 // Główny komponent slidera produktów
-export function ProductSlider({
-  products,
-  lang,
-}: Props) {
+export function ProductSlider({ products, lang }: Props) {
   // Ref do tracka slidera, żeby móc przewijać programowo
   const trackRef = useRef<HTMLDivElement | null>(null);
 
@@ -171,12 +168,9 @@ export function ProductSlider({
   // Jeśli nie ma produktów, nie renderujemy slidera
   if (!validProducts.length) return null;
 
-  // Tytuł główny slidera
-
-
-  // Druga część tytułu slidera
+  // Tytuł slidera
   const headingMain = lang === "es" ? "Nuevas" : "New";
-const headingAccent = lang === "es" ? "Llegadas" : "Arrivals";
+  const headingAccent = lang === "es" ? "Llegadas" : "Arrivals";
 
   return (
     <section className="slider-section slider-section--luxe">
@@ -207,7 +201,7 @@ const headingAccent = lang === "es" ? "Llegadas" : "Arrivals";
             const sizeBadgeText = getSizeBadgeText(product, lang);
 
             // Tekst badge z grupą docelową
-            const audienceLabel = getAudienceLabel(product.size_system, lang);;
+            const audienceLabel = getAudienceLabel(product.size_system, lang);
 
             return (
               <div
@@ -223,7 +217,7 @@ const headingAccent = lang === "es" ? "Llegadas" : "Arrivals";
                     >
                       <RotatingProductImage
                         name={product.name}
-                        imageUrl={product.image_url}
+                        imageUrl={product.image_url ?? null}
                         imageUrls={product.image_urls ?? []}
                         intervalMs={2000}
                       />
@@ -243,9 +237,11 @@ const headingAccent = lang === "es" ? "Llegadas" : "Arrivals";
                           {lang === "es" ? "Nuevo" : "New"}
                         </div>
 
-                        <div className="slider-card__badge slider-card__badge--soft">
-                          {audienceLabel}
-                        </div>
+                        {audienceLabel ? (
+                          <div className="slider-card__badge slider-card__badge--soft">
+                            {audienceLabel}
+                          </div>
+                        ) : null}
                       </div>
 
                       <ProductClickLink
