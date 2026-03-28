@@ -14,7 +14,6 @@ const ui = {
     password: "Password",
     button: "Sign in",
     loading: "Signing in...",
-    error: "Invalid email or password.",
   },
   es: {
     badge: "Login",
@@ -24,45 +23,61 @@ const ui = {
     password: "Contraseña",
     button: "Iniciar sesión",
     loading: "Iniciando sesión...",
-    error: "Correo o contraseña incorrectos.",
   },
 };
 
 export function LoginForm({ lang }: { lang: Locale }) {
+  /* Router do przekierowania po poprawnym logowaniu */
   const router = useRouter();
+
+  /* Teksty UI zależne od języka */
   const t = ui[lang];
 
+  /* Stan formularza */
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  /* Stan ładowania i błędu */
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    /* Blokujemy standardowe przeładowanie formularza */
     e.preventDefault();
+
+    /* Czyścimy stary błąd i ustawiamy loading */
     setLoading(true);
-    setError("");
+    setErrorMessage("");
 
     try {
+      /* Pobranie konfiguracji Supabase z env */
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
       const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
 
+      /* Tworzymy klienta Supabase po stronie przeglądarki */
       const supabase = createClient(supabaseUrl, supabaseKey);
 
+      /* Próba logowania mailem i hasłem */
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
+      /* Jeśli Supabase zwrócił błąd, pokaż jego treść */
       if (error) {
-        setError(t.error);
+        setErrorMessage(error.message);
         setLoading(false);
         return;
       }
 
+      /* Po poprawnym logowaniu przechodzimy do panelu admina */
       router.push(`/${lang}/admin`);
       router.refresh();
-    } catch {
-      setError(t.error);
+    } catch (error) {
+      /* Fallback na nieprzewidziane wyjątki */
+      setErrorMessage(
+        error instanceof Error ? error.message : "Unexpected login error."
+      );
       setLoading(false);
     }
   }
@@ -97,7 +112,7 @@ export function LoginForm({ lang }: { lang: Locale }) {
             />
           </label>
 
-          {error ? <p className="auth-error">{error}</p> : null}
+          {errorMessage ? <p className="auth-error">{errorMessage}</p> : null}
 
           <button className="auth-submit" type="submit" disabled={loading}>
             {loading ? t.loading : t.button}
