@@ -15,8 +15,8 @@ export default async function CartRoutePage({
       <div className="section__header">
         <div>
           <div className="eyebrow">{dict.nav.cart}</div>
-          <h1>{dict.cart.title}</h1>
-          <p>{dict.cart.subtitle}</p>
+<h1>{dict.cart?.title ?? "Your cart"}</h1>
+<p>{dict.cart?.subtitle ?? "Review your selected products"}</p>
         </div>
       </div>
 
