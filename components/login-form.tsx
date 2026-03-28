@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Locale } from "@/lib/i18n";
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from "@/lib/supabase/client";
 
 const ui = {
   en: {
