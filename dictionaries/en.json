@@ -7,21 +7,21 @@
     "login": "Login",
     "logout": "Logout"
   },
-"home": {
-  "badge": "Premium storefront for a modern footwear brand",
-  "title": "Buy shoes in a premium fashion style.",
-  "titleAccent": "premium fashion",
-  "description": "Discover premium sneakers selected for comfort, quality and modern style.",
-  "viewCollection": "View collection",
-  "manageProducts": "Manage products",
-  "featured": "Featured",
-  "startProducts": "Starter products",
-  "fullCatalog": "Full catalog",
-  "empty": "No products yet. Add them in the admin panel or run seed.sql.",
-  "sliderTitleMain": "New",
-  "sliderTitleAccent": "Arrivals",
-   "sliderTitleAccent2": "."
-},
+  "home": {
+    "badge": "Premium storefront for a modern footwear brand",
+    "title": "Buy shoes in a premium fashion style.",
+    "titleAccent": "premium fashion",
+    "description": "Discover premium sneakers selected for comfort, quality and modern style.",
+    "viewCollection": "View collection",
+    "manageProducts": "Manage products",
+    "featured": "Featured",
+    "startProducts": "Starter products",
+    "fullCatalog": "Full catalog",
+    "empty": "No products yet. Add them in the admin panel or run seed.sql.",
+    "sliderTitleMain": "New",
+    "sliderTitleAccent": "Arrivals",
+    "sliderTitleAccent2": "."
+  },
   "shop": {
     "collection": "Collection",
     "title": "Shop",
@@ -58,19 +58,20 @@
     "goToCart": "Go to cart"
   },
   "cart": {
-    "contactButton": "Contact to order"
+    "contactButton": "Contact to order",
+    "title": "Your cart",
+    "subtitle": "Review your selected products"
   },
-
- "contact": {
-  "badge": "",
-  "titleMain": "Contact",
-  "titleAccent": "us.",
-  "description": "Choose the contact method that suits you best.",
-  "phone": "Phone",
-  "whatsapp": "WhatsApp",
-  "messenger": "Messenger",
-  "sendMessage": "Send message"
-},
+  "contact": {
+    "badge": "",
+    "titleMain": "Contact",
+    "titleAccent": "us.",
+    "description": "Choose the contact method that suits you best.",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "messenger": "Messenger",
+    "sendMessage": "Send message"
+  },
   "auth": {
     "title": "Login",
     "description": "Sign in with your Supabase Auth account. After assigning the admin role, you will get access to the admin panel.",
@@ -95,8 +96,4 @@
     "products": "Products",
     "items": "items"
   }
-  "cart": {
-  "title": "Your cart",
-  "subtitle": "Review your selected products"
-}
 }
