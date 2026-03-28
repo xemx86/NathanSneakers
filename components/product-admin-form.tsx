@@ -93,7 +93,8 @@ export function ProductAdminForm({
         <div className="field">
           <label>
             Nazwa
-            <input name="name" required defaultValue={product?.category ?? ""} />
+            /* Pole nazwy produktu */
+<input name="name" required defaultValue={product?.name ?? ""} />
           </label>
         </div>
 
