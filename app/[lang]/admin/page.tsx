@@ -51,38 +51,40 @@ export default async function AdminPage({
   /* Tryb formularza */
   const formMode = productToEdit ? "update" : "create";
 
-return (
-  <div className="container">
-    <div style={{ marginBottom: 20 }}>
-      <Link href={`/${lang}/sklep`} className="button-secondary">
-        {lang === "es" ? "Volver a la tienda" : "Back to shop"}
-      </Link>
-    </div>
+  return (
+    <div className="container">
+      <div style={{ marginBottom: 20 }}>
+        <Link href={`/${lang}/sklep`} className="button-secondary">
+          {lang === "es" ? "Volver a la tienda" : "Back to shop"}
+        </Link>
+      </div>
 
-    {/* 🔥 DEBUG — dodaj tutaj */}
-    <div
-      style={{
-        marginBottom: 16,
-        padding: 12,
-        background: "#111",
-        color: "#fff",
-        borderRadius: 8,
-      }}
-    >
-      <div>editId: {editId || "brak"}</div>
-      <div>matched: {productToEdit?.name ?? "NOT FOUND"}</div>
-      <div>mode: {formMode}</div>
-    </div>
+      {/* DEBUG */}
+      <div
+        style={{
+          marginBottom: 16,
+          padding: 12,
+          background: "#111",
+          color: "#fff",
+          borderRadius: 8,
+        }}
+      >
+        <div>editId: {editId || "brak"}</div>
+        <div>matched: {productToEdit?.name ?? "NOT FOUND"}</div>
+        <div>mode: {formMode}</div>
+      </div>
 
-    {/* FORMULARZ */}
-    <ProductAdminForm
-      key={productToEdit?.id ?? "create-product"}
-      mode={formMode}
-      product={productToEdit}
-    />
+      {/* Formularz edycji / dodawania */}
+      <ProductAdminForm
+        key={productToEdit?.id ?? "create-product"}
+        mode={formMode}
+        product={productToEdit}
+      />
 
-    <div style={{ marginTop: 32 }}>
-      <ProductAdminList products={products} />
+      {/* Lista produktów */}
+      <div style={{ marginTop: 32 }}>
+        <ProductAdminList products={products} />
+      </div>
     </div>
-  </div>
-);
+  );
+}
