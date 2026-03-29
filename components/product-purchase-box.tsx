@@ -26,12 +26,14 @@ const ui = {
     addToCart: "Add to cart",
     addedToCart: "Added to cart",
     goToCart: "Go to cart",
+    askOnWhatsapp: "Ask on WhatsApp",
   },
   es: {
     chooseSize: "Elegir talla",
     addToCart: "Añadir al carrito",
     addedToCart: "Añadido al carrito",
     goToCart: "Ir al carrito",
+    askOnWhatsapp: "Preguntar por WhatsApp",
   },
 };
 
@@ -60,6 +62,33 @@ export function ProductPurchaseBox({ product, lang }: Props) {
     setAdded(true);
     window.setTimeout(() => setAdded(false), 1400);
   }
+
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+    "https://nathansneakers.onrender.com";
+
+  const productUrl = `${siteUrl}/${lang}/produkt/${product.slug}`;
+
+  const whatsappMessage =
+    lang === "es"
+      ? `Hola, estoy interesado en este producto:
+${product.name}
+Talla: ${selectedSize || "No seleccionada"}
+Precio: ${formatPrice(activePrice)}
+Enlace: ${productUrl}
+
+¿Sigue disponible?`
+      : `Hi, I'm interested in this product:
+${product.name}
+Size: ${selectedSize || "Not selected"}
+Price: ${formatPrice(activePrice)}
+Link: ${productUrl}
+
+Is it still available?`;
+
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=19563562096&text=${encodeURIComponent(
+    whatsappMessage
+  )}`;
 
   return (
     <div className="purchase-box">
@@ -96,6 +125,23 @@ export function ProductPurchaseBox({ product, lang }: Props) {
         <Link className="button-secondary" href={`/${lang}/koszyk`}>
           {t.goToCart}
         </Link>
+      </div>
+
+      <div style={{ marginTop: 12 }}>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="button-secondary"
+          style={{
+            display: "inline-flex",
+            width: "100%",
+            justifyContent: "center",
+            textDecoration: "none",
+          }}
+        >
+          {t.askOnWhatsapp}
+        </a>
       </div>
     </div>
   );
