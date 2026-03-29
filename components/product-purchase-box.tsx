@@ -27,6 +27,9 @@ const ui = {
     addedToCart: "Added to cart",
     goToCart: "Go to cart",
     askOnWhatsapp: "Ask on WhatsApp",
+    copiedMessage: "Message copied. Paste it into WhatsApp.",
+    copyFailed: "Copy failed. Copy the message manually below.",
+    messageLabel: "Message for seller",
   },
   es: {
     chooseSize: "Elegir talla",
@@ -34,6 +37,9 @@ const ui = {
     addedToCart: "Añadido al carrito",
     goToCart: "Ir al carrito",
     askOnWhatsapp: "Preguntar por WhatsApp",
+    copiedMessage: "Mensaje copiado. Pégalo en WhatsApp.",
+    copyFailed: "No se pudo copiar. Copia el mensaje manualmente abajo.",
+    messageLabel: "Mensaje para el vendedor",
   },
 };
 
@@ -41,6 +47,7 @@ export function ProductPurchaseBox({ product, lang }: Props) {
   const { addItem } = useCart();
   const [selectedSize, setSelectedSize] = useState(product.sizes[0] ?? "");
   const [added, setAdded] = useState(false);
+  const [notice, setNotice] = useState("");
   const t = ui[lang];
 
   const activePrice = useMemo(
@@ -63,26 +70,53 @@ export function ProductPurchaseBox({ product, lang }: Props) {
     window.setTimeout(() => setAdded(false), 1400);
   }
 
-  function handleWhatsApp() {
-    const baseUrl =
-      typeof window !== "undefined" ? window.location.origin : "";
-
+  async function handleWhatsApp() {
+    const baseUrl = window.location.origin;
     const productUrl = `${baseUrl}/${lang}/produkt/${product.slug}`;
 
     const message =
       lang === "es"
-        ? `Hola, estoy interesado en este producto:%0A${product.name}%0ATalla: ${
-            selectedSize || "No seleccionada"
-          }%0APrecio: ${formatPrice(activePrice)}%0AEnlace: ${productUrl}%0A%0A¿Sigue disponible?`
-        : `Hi, I'm interested in this product:%0A${product.name}%0ASize: ${
-            selectedSize || "Not selected"
-          }%0APrice: ${formatPrice(activePrice)}%0ALink: ${productUrl}%0A%0AIs it still available?`;
+        ? `Hola, estoy interesado en este producto:
+${product.name}
+Talla: ${selectedSize || "No seleccionada"}
+Precio: ${formatPrice(activePrice)}
+Enlace: ${productUrl}
 
-    const phone = "19563562096";
-    const whatsappUrl = `https://web.whatsapp.com/send?phone=${phone}&text=${message}`;
+¿Sigue disponible?`
+        : `Hi, I'm interested in this product:
+${product.name}
+Size: ${selectedSize || "Not selected"}
+Price: ${formatPrice(activePrice)}
+Link: ${productUrl}
 
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+Is it still available?`;
+
+    try {
+      await navigator.clipboard.writeText(message);
+      setNotice(t.copiedMessage);
+    } catch {
+      setNotice(t.copyFailed);
+    }
+
+    window.open("https://wa.me/19563562096", "_blank", "noopener,noreferrer");
   }
+
+  const previewMessage =
+    lang === "es"
+      ? `Hola, estoy interesado en este producto:
+${product.name}
+Talla: ${selectedSize || "No seleccionada"}
+Precio: ${formatPrice(activePrice)}
+Enlace: ${typeof window !== "undefined" ? `${window.location.origin}/${lang}/produkt/${product.slug}` : `/${lang}/produkt/${product.slug}`}
+
+¿Sigue disponible?`
+      : `Hi, I'm interested in this product:
+${product.name}
+Size: ${selectedSize || "Not selected"}
+Price: ${formatPrice(activePrice)}
+Link: ${typeof window !== "undefined" ? `${window.location.origin}/${lang}/produkt/${product.slug}` : `/${lang}/produkt/${product.slug}`}
+
+Is it still available?`;
 
   return (
     <div className="purchase-box">
@@ -130,6 +164,30 @@ export function ProductPurchaseBox({ product, lang }: Props) {
         >
           {t.askOnWhatsapp}
         </button>
+      </div>
+
+      {notice ? (
+        <p style={{ marginTop: 10, fontSize: 14 }}>{notice}</p>
+      ) : null}
+
+      <div style={{ marginTop: 12 }}>
+        <div style={{ marginBottom: 6, fontSize: 14, fontWeight: 600 }}>
+          {t.messageLabel}
+        </div>
+        <textarea
+          readOnly
+          value={previewMessage}
+          style={{
+            width: "100%",
+            minHeight: 140,
+            padding: 12,
+            borderRadius: 12,
+            border: "1px solid #d0d0d0",
+            resize: "vertical",
+            fontFamily: "inherit",
+            fontSize: 14,
+          }}
+        />
       </div>
     </div>
   );
