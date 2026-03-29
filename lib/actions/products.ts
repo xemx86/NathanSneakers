@@ -6,7 +6,7 @@ import { getCurrentProfile } from "@/lib/auth";
 import { listProducts } from "@/lib/products";
 import { parseSizes } from "@/lib/utils";
 import type { ProductRow, ProductSizeSystem } from "@/types/store";
-import { createClient } from "@/lib/supabase/server"; // <- dopasuj do swojego projektu
+import { createClient } from "@/utils/supabase/server"; // <- dopasuj do swojego projektu
 
 export type ProductActionState = {
   status: "idle" | "success" | "error";
