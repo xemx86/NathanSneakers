@@ -90,10 +90,13 @@ Link: ${productUrl}
 
 Is it still available?`;
 
-  /* Link otwierający WhatsApp z gotową wiadomością */
+/* Link otwierający WhatsApp z gotową wiadomością */
 const whatsappUrl = `https://api.whatsapp.com/send?phone=19563562096&text=${encodeURIComponent(
   whatsappMessage
 )}`;
+
+console.log("WhatsApp URL:", whatsappUrl);
+console.log("WhatsApp message:", whatsappMessage);
 
   return (
     <div className="purchase-box">
