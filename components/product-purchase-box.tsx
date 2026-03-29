@@ -63,32 +63,26 @@ export function ProductPurchaseBox({ product, lang }: Props) {
     window.setTimeout(() => setAdded(false), 1400);
   }
 
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "https://nathansneakers.onrender.com";
+  function handleWhatsApp() {
+    const baseUrl =
+      typeof window !== "undefined" ? window.location.origin : "";
 
-  const productUrl = `${siteUrl}/${lang}/produkt/${product.slug}`;
+    const productUrl = `${baseUrl}/${lang}/produkt/${product.slug}`;
 
-  const whatsappMessage =
-    lang === "es"
-      ? `Hola, estoy interesado en este producto:
-${product.name}
-Talla: ${selectedSize || "No seleccionada"}
-Precio: ${formatPrice(activePrice)}
-Enlace: ${productUrl}
+    const message =
+      lang === "es"
+        ? `Hola, estoy interesado en este producto:%0A${product.name}%0ATalla: ${
+            selectedSize || "No seleccionada"
+          }%0APrecio: ${formatPrice(activePrice)}%0AEnlace: ${productUrl}%0A%0A¿Sigue disponible?`
+        : `Hi, I'm interested in this product:%0A${product.name}%0ASize: ${
+            selectedSize || "Not selected"
+          }%0APrice: ${formatPrice(activePrice)}%0ALink: ${productUrl}%0A%0AIs it still available?`;
 
-¿Sigue disponible?`
-      : `Hi, I'm interested in this product:
-${product.name}
-Size: ${selectedSize || "Not selected"}
-Price: ${formatPrice(activePrice)}
-Link: ${productUrl}
+    const phone = "19563562096";
+    const whatsappUrl = `https://web.whatsapp.com/send?phone=${phone}&text=${message}`;
 
-Is it still available?`;
-
-  const whatsappUrl = `https://api.whatsapp.com/send?phone=19563562096&text=${encodeURIComponent(
-    whatsappMessage
-  )}`;
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  }
 
   return (
     <div className="purchase-box">
@@ -128,20 +122,14 @@ Is it still available?`;
       </div>
 
       <div style={{ marginTop: 12 }}>
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
           className="button-secondary"
-          style={{
-            display: "inline-flex",
-            width: "100%",
-            justifyContent: "center",
-            textDecoration: "none",
-          }}
+          onClick={handleWhatsApp}
+          style={{ width: "100%" }}
         >
           {t.askOnWhatsapp}
-        </a>
+        </button>
       </div>
     </div>
   );
