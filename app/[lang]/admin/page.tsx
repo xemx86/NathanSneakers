@@ -40,7 +40,9 @@ console.log("EDIT ID:", editId);
 console.log("FIRST PRODUCT ID:", products[0]?.id);
   /* Szukamy produktu, który ma zostać otwarty do edycji */
   const productToEdit =
-    products.find((product) => product.id === editId) ?? undefined;
+products.find((product) => 
+  product.id === editId || product.slug === editId
+)
 
   /* Tryb formularza:
      - update, jeśli znaleźliśmy produkt do edycji
