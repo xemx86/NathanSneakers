@@ -37,13 +37,13 @@
   "dependencies": {
     "...": "..."
   },
-  "devDependencies": {
-    "...": "...",
-    "typescript": "^5.8.3"
-  },
-  "engines": {
-    "node": ">=20.18.0 <21.0.0"
-  }
+"devDependencies": {
+  ...
+  "typescript": "^5.8.3"
+},
+"engines": {
+  "node": ">=20.18.0 <21.0.0"
+}
 }
   "node": ">=20.18.0 <21.0.0"
 }
