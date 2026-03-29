@@ -36,7 +36,8 @@ export default async function AdminPage({
 
   /* ID produktu przekazane w URL, np. /en/admin?edit=UUID */
   const editId = query.edit ?? "";
-
+console.log("EDIT ID:", editId);
+console.log("FIRST PRODUCT ID:", products[0]?.id);
   /* Szukamy produktu, który ma zostać otwarty do edycji */
   const productToEdit =
     products.find((product) => product.id === editId) ?? undefined;
