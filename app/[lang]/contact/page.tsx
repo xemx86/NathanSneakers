@@ -102,12 +102,12 @@ export default async function ContactPage({ params }: ContactPageProps) {
             </div>
             <div style={{ fontSize: "20px", fontWeight: 700 }}>{phoneLabel}</div>
             <div style={{ marginTop: "6px", fontSize: "16px", color: "#b37543" }}>
-              +1 (570) 555-1234
+              +44470777478
             </div>
           </a>
 
           <a
-            href="https://wa.me/15705551234"
+            href="https://wa.me/+44470777478"
             target="_blank"
             rel="noopener noreferrer"
             style={{
