@@ -38,9 +38,16 @@ const ui = {
 };
 
 export function ProductPurchaseBox({ product, lang }: Props) {
+  /* Koszyk */
   const { addItem } = useCart();
+
+  /* Domyślnie wybieramy pierwszy dostępny rozmiar */
   const [selectedSize, setSelectedSize] = useState(product.sizes[0] ?? "");
+
+  /* Stan do krótkiego komunikatu po dodaniu do koszyka */
   const [added, setAdded] = useState(false);
+
+  /* Tłumaczenia */
   const t = ui[lang];
 
   /* Aktualna cena - promocyjna jeśli istnieje, w przeciwnym razie regularna */
@@ -65,11 +72,12 @@ export function ProductPurchaseBox({ product, lang }: Props) {
     window.setTimeout(() => setAdded(false), 1400);
   }
 
-  /* Budujemy pełny link do produktu */
+  /* Bazowy adres strony - pobieramy z env */
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
     "https://nathansneakers.onrender.com";
 
+  /* Pełny link do produktu */
   const productUrl = `${siteUrl}/${lang}/produkt/${product.slug}`;
 
   /* Treść wiadomości do WhatsApp */
@@ -90,13 +98,14 @@ Link: ${productUrl}
 
 Is it still available?`;
 
-/* Link otwierający WhatsApp z gotową wiadomością */
-const whatsappUrl = `https://api.whatsapp.com/send?phone=19563562096&text=${encodeURIComponent(
-  whatsappMessage
-)}`;
+  /* Link otwierający WhatsApp z gotową wiadomością */
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=19563562096&text=${encodeURIComponent(
+    whatsappMessage
+  )}`;
 
-console.log("WhatsApp URL:", whatsappUrl);
-console.log("WhatsApp message:", whatsappMessage);
+  /* Debug - sprawdzisz w konsoli przeglądarki */
+  console.log("WhatsApp URL:", whatsappUrl);
+  console.log("WhatsApp message:", whatsappMessage);
 
   return (
     <div className="purchase-box">
