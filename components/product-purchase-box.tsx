@@ -26,37 +26,26 @@ const ui = {
     addToCart: "Add to cart",
     addedToCart: "Added to cart",
     goToCart: "Go to cart",
-    askOnWhatsapp: "Ask on WhatsApp",
   },
   es: {
     chooseSize: "Elegir talla",
     addToCart: "Añadir al carrito",
     addedToCart: "Añadido al carrito",
     goToCart: "Ir al carrito",
-    askOnWhatsapp: "Preguntar por WhatsApp",
   },
 };
 
 export function ProductPurchaseBox({ product, lang }: Props) {
-  /* Koszyk */
   const { addItem } = useCart();
-
-  /* Domyślnie wybieramy pierwszy dostępny rozmiar */
   const [selectedSize, setSelectedSize] = useState(product.sizes[0] ?? "");
-
-  /* Stan do krótkiego komunikatu po dodaniu do koszyka */
   const [added, setAdded] = useState(false);
-
-  /* Tłumaczenia */
   const t = ui[lang];
 
-  /* Aktualna cena - promocyjna jeśli istnieje, w przeciwnym razie regularna */
   const activePrice = useMemo(
     () => product.sale_price ?? product.price,
     [product.price, product.sale_price]
   );
 
-  /* Dodanie produktu do koszyka */
   function handleAdd() {
     addItem({
       productId: product.id,
@@ -71,41 +60,6 @@ export function ProductPurchaseBox({ product, lang }: Props) {
     setAdded(true);
     window.setTimeout(() => setAdded(false), 1400);
   }
-
-  /* Bazowy adres strony - pobieramy z env */
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "https://nathansneakers.onrender.com";
-
-  /* Pełny link do produktu */
-  const productUrl = `${siteUrl}/${lang}/produkt/${product.slug}`;
-
-  /* Treść wiadomości do WhatsApp */
-  const whatsappMessage =
-    lang === "es"
-      ? `Hola, estoy interesado en este producto:
-${product.name}
-Talla: ${selectedSize || "No seleccionada"}
-Precio: ${formatPrice(activePrice)}
-Enlace: ${productUrl}
-
-¿Sigue disponible?`
-      : `Hi, I'm interested in this product:
-${product.name}
-Size: ${selectedSize || "Not selected"}
-Price: ${formatPrice(activePrice)}
-Link: ${productUrl}
-
-Is it still available?`;
-
-  /* Link otwierający WhatsApp z gotową wiadomością */
-  const whatsappUrl = `https://api.whatsapp.com/send?phone=19563562096&text=${encodeURIComponent(
-    whatsappMessage
-  )}`;
-
-  /* Debug - sprawdzisz w konsoli przeglądarki */
-  console.log("WhatsApp URL:", whatsappUrl);
-  console.log("WhatsApp message:", whatsappMessage);
 
   return (
     <div className="purchase-box">
@@ -124,11 +78,7 @@ Is it still available?`;
               <button
                 key={size}
                 type="button"
-                className={
-                  selectedSize === size
-                    ? "size-pill size-pill--active"
-                    : "size-pill"
-                }
+                className={selectedSize === size ? "size-pill size-pill--active" : "size-pill"}
                 onClick={() => setSelectedSize(size)}
               >
                 {size}
@@ -146,23 +96,6 @@ Is it still available?`;
         <Link className="button-secondary" href={`/${lang}/koszyk`}>
           {t.goToCart}
         </Link>
-      </div>
-
-      <div style={{ marginTop: 12 }}>
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="button-secondary"
-          style={{
-            display: "inline-flex",
-            width: "100%",
-            justifyContent: "center",
-            textDecoration: "none",
-          }}
-        >
-          {t.askOnWhatsapp}
-        </a>
       </div>
     </div>
   );
