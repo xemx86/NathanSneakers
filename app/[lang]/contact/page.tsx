@@ -88,7 +88,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
           }}
         >
           <a
-            href="tel:+44700777478"
+            href="tel:+19563562096"
             style={{
               minWidth: "220px",
               textAlign: "left",
@@ -102,12 +102,12 @@ export default async function ContactPage({ params }: ContactPageProps) {
             </div>
             <div style={{ fontSize: "20px", fontWeight: 700 }}>{phoneLabel}</div>
             <div style={{ marginTop: "6px", fontSize: "16px", color: "#b37543" }}>
-              +44740777478
+              +19563562096
             </div>
           </a>
 
           <a
-            href="https://wa.me/+447400777478"
+            href="https://wa.me/+19563562096"
             target="_blank"
             rel="noopener noreferrer"
             style={{
