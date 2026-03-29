@@ -76,4 +76,9 @@ products.find((product) =>
       </div>
     </div>
   );
+  console.log("EDIT ID:", editId);
+console.log(
+  "MATCHED PRODUCT:",
+  products.find((product) => product.id === editId)
+);
 }
