@@ -1,12 +1,12 @@
 /* Akcje produktów — zapis, edycja i usuwanie */
 "use server";
 
-import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { getCurrentProfile } from "@/lib/auth";
-import { listProducts, writeProductsFile } from "@/lib/products";
+import { listProducts } from "@/lib/products";
 import { parseSizes } from "@/lib/utils";
 import type { ProductRow, ProductSizeSystem } from "@/types/store";
+import { createClient } from "@/lib/supabase/server"; // <- dopasuj do swojego projektu
 
 export type ProductActionState = {
   status: "idle" | "success" | "error";
@@ -35,7 +35,6 @@ function parseImageUrls(values: FormDataEntryValue[]) {
   );
 }
 
-/* Budowanie payloadu produktu z formularza */
 /* Budowanie payloadu produktu z formularza */
 function getProductPayload(formData: FormData) {
   /* Cena promocyjna z formularza */
@@ -66,16 +65,15 @@ function getProductPayload(formData: FormData) {
       : "unisex";
 
   /* Walidacja systemu rozmiarowego */
-const size_system =
-  (
-    sizeSystemRaw === "men" ||
-    sizeSystemRaw === "women" ||
-    sizeSystemRaw === "kids" ||
-    sizeSystemRaw === "men_women"
-      ? sizeSystemRaw
-      : "men"
-    
-  ) as ProductSizeSystem;
+  const size_system =
+    (
+      sizeSystemRaw === "men" ||
+      sizeSystemRaw === "women" ||
+      sizeSystemRaw === "kids" ||
+      sizeSystemRaw === "men_women"
+        ? sizeSystemRaw
+        : "men"
+    ) as ProductSizeSystem;
 
   return {
     /* Podstawowe dane produktu */
@@ -154,14 +152,16 @@ export async function createProductAction(
       return { status: "error", message: "Produkt z takim slug już istnieje." };
     }
 
-const newProduct: ProductRow = {
-  id: randomUUID(),
-  ...payload,
-  is_active: true,
-  created_at: new Date().toISOString(),
-};
+    const supabase = await createClient();
 
-    await writeProductsFile([newProduct, ...products]);
+    const { error } = await supabase.from("products").insert({
+      ...payload,
+      is_active: true,
+    });
+
+    if (error) {
+      return { status: "error", message: error.message };
+    }
 
     revalidateStorePaths(payload.slug);
 
@@ -206,11 +206,16 @@ export async function updateProductAction(
       return { status: "error", message: "Inny produkt ma już taki slug." };
     }
 
-    const updatedProducts = products.map((item) =>
-      item.id === id ? { ...item, ...payload } : item
-    );
+    const supabase = await createClient();
 
-    await writeProductsFile(updatedProducts);
+    const { error } = await supabase
+      .from("products")
+      .update(payload)
+      .eq("id", id);
+
+    if (error) {
+      return { status: "error", message: error.message };
+    }
 
     revalidateStorePaths(payload.slug);
 
@@ -239,10 +244,16 @@ export async function deleteProductAction(
       return { status: "error", message: "Brakuje ID produktu." };
     }
 
-    const products = await listProducts({ limit: 10000 });
-    const filteredProducts = products.filter((item) => item.id !== id);
+    const supabase = await createClient();
 
-    await writeProductsFile(filteredProducts);
+    const { error } = await supabase
+      .from("products")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      return { status: "error", message: error.message };
+    }
 
     revalidateStorePaths();
 
@@ -255,7 +266,5 @@ export async function deleteProductAction(
           ? error.message
           : "Nie udało się usunąć produktu.",
     };
-    
   }
-  
 }
