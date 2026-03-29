@@ -123,7 +123,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
             </div>
             <div style={{ fontSize: "20px", fontWeight: 700 }}>{whatsappLabel}</div>
             <div style={{ marginTop: "6px", fontSize: "16px", color: "#b37543" }}>
-             +447400777478
+            +19563562096
             </div>
           </a>
 
