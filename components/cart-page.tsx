@@ -21,6 +21,9 @@ const ui = {
     size: "size",
     checkoutInfo:
       "Checkout works based on current prices fetched from the database, not from localStorage.",
+    whatsapp: "Contact on WhatsApp",
+    quantity: "Quantity",
+    availabilityMessage: "Please let me know if they are available.",
   },
   es: {
     empty: "Tu carrito está vacío.",
@@ -36,12 +39,47 @@ const ui = {
     size: "talla",
     checkoutInfo:
       "El checkout funciona con los precios actuales obtenidos de la base de datos, no de localStorage.",
+    whatsapp: "Contactar por WhatsApp",
+    quantity: "Cantidad",
+    availabilityMessage: "Por favor, avísame si están disponibles.",
   },
 };
 
 export function CartPage({ lang }: { lang: Locale }) {
   const { items, subtotal, removeItem, setQuantity } = useCart();
   const t = ui[lang];
+
+  /* Numer WhatsApp sklepu bez znaku + */
+  const whatsappNumber = "+19563562096";
+
+  /* Adres strony potrzebny do budowania linków do produktów */
+  const siteUrl = "https://nathansneakers.onrender.com";
+
+  /* Budujemy treść wiadomości z całej zawartości koszyka */
+  const whatsappMessage = items
+    .map((item, index) => {
+      return `${index + 1}. ${item.name}
+Brand: ${item.brand}
+${item.size ? `${t.size}: ${item.size}` : ""}
+${t.quantity}: ${item.quantity}
+Price: ${formatPrice(item.price * item.quantity)}
+Link: ${siteUrl}/${lang}/produkt/${item.slug}`;
+    })
+    .join("\n\n");
+
+  /* Wstęp wiadomości zależny od języka */
+  const intro =
+    lang === "es"
+      ? "Hola, estoy interesado en estos productos:"
+      : "Hello, I'm interested in these products:";
+
+  /* Końcowa treść wiadomości */
+  const fullWhatsappMessage = `${intro}\n\n${whatsappMessage}\n\n${t.availabilityMessage}`;
+
+  /* Gotowy link do WhatsApp z zakodowaną wiadomością */
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    fullWhatsappMessage
+  )}`;
 
   if (items.length === 0) {
     return (
@@ -102,47 +140,58 @@ export function CartPage({ lang }: { lang: Locale }) {
         ))}
       </section>
 
-<aside className="panel cart-summary cart-summary--premium">
-  {/* Mały badge nad tytułem */}
-  <div className="eyebrow cart-summary__eyebrow">{t.summary}</div>
+      <aside className="panel cart-summary cart-summary--premium">
+        {/* Mały badge nad tytułem */}
+        <div className="eyebrow cart-summary__eyebrow">{t.summary}</div>
 
-  {/* Premium tytuł sekcji summary */}
-  <h2 className="cart-summary__title">
-    <span className="cart-summary__title-main">
-      {lang === "es" ? "Listo" : "Ready"}
-    </span>
-    <br />
-    <span className="cart-summary__title-accent">
-      {lang === "es" ? "para el checkout" : "for checkout"}
-    </span>
-  </h2>
+        {/* Premium tytuł sekcji summary */}
+        <h2 className="cart-summary__title">
+          <span className="cart-summary__title-main">
+            {lang === "es" ? "Listo" : "Ready"}
+          </span>
+          <br />
+          <span className="cart-summary__title-accent">
+            {lang === "es" ? "para el checkout" : "for checkout"}
+          </span>
+        </h2>
 
-  {/* Wiersz: wartość produktów */}
-  <div className="summary-row">
-    <span>{t.items}</span>
-    <strong>{formatPrice(subtotal)}</strong>
-  </div>
+        {/* Wiersz: wartość produktów */}
+        <div className="summary-row">
+          <span>{t.items}</span>
+          <strong>{formatPrice(subtotal)}</strong>
+        </div>
 
-  {/* Wiersz: wysyłka */}
-  <div className="summary-row">
-    <span>{t.shipping}</span>
-    <strong>{t.calculatedInStripe}</strong>
-  </div>
+        {/* Wiersz: wysyłka */}
+        <div className="summary-row">
+          <span>{t.shipping}</span>
+          <strong>{t.calculatedInStripe}</strong>
+        </div>
 
-  {/* Wiersz: suma końcowa */}
-  <div className="summary-row summary-row--total">
-    <span>{t.total}</span>
-    <strong>{formatPrice(subtotal)}</strong>
-  </div>
+        {/* Wiersz: suma końcowa */}
+        <div className="summary-row summary-row--total">
+          <span>{t.total}</span>
+          <strong>{formatPrice(subtotal)}</strong>
+        </div>
 
-  {/* Przycisk checkout */}
-  <CheckoutButton />
+        {/* Przycisk checkout */}
+        <CheckoutButton />
 
-  {/* Opis pod przyciskiem */}
-  <p className="footer-muted cart-summary__note" style={{ marginTop: 14 }}>
-    {t.checkoutInfo}
-  </p>
-</aside>
+        {/* Przycisk kontaktu przez WhatsApp z gotową treścią koszyka */}
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="button button-secondary"
+          style={{ marginTop: 12, width: "100%", textAlign: "center" }}
+        >
+          {t.whatsapp}
+        </a>
+
+        {/* Opis pod przyciskiem */}
+        <p className="footer-muted cart-summary__note" style={{ marginTop: 14 }}>
+          {t.checkoutInfo}
+        </p>
+      </aside>
     </div>
   );
 }
