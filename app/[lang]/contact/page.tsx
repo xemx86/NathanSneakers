@@ -6,15 +6,7 @@ type ContactPageProps = {
   params: Promise<{ lang: string }>;
 };
 
-function PhoneIcon() {
-  return (
-    <img
-      src="/icons/phone.png"
-      alt="Phone"
-      style={{ width: 120, height: 120, objectFit: "contain", display: "block" }}
-    />
-  );
-}
+
 
 function WhatsAppIcon() {
   return (
@@ -26,15 +18,7 @@ function WhatsAppIcon() {
   );
 }
 
-function MessengerIcon() {
-  return (
-    <img
-      src="/icons/messenger.png"
-      alt="Messenger"
-      style={{ width: 120, height: 120, objectFit: "contain", display: "block" }}
-    />
-  );
-}
+
 
 export default async function ContactPage({ params }: ContactPageProps) {
   const { lang } = await params;
@@ -87,25 +71,8 @@ export default async function ContactPage({ params }: ContactPageProps) {
             paddingBottom: "8px",
           }}
         >
-          <a
-            href="tel:+19563562096"
-            style={{
-              minWidth: "220px",
-              textAlign: "left",
-              textDecoration: "none",
-              color: "inherit",
-              flexShrink: 0,
-            }}
-          >
-            <div style={{ marginBottom: "16px" }}>
-              <PhoneIcon />
-            </div>
-            <div style={{ fontSize: "20px", fontWeight: 700 }}>{phoneLabel}</div>
-            <div style={{ marginTop: "6px", fontSize: "16px", color: "#b37543" }}>
-              +19563562096
-            </div>
-          </a>
-
+       
+           
           <a
             href="https://wa.me/+19563562096"
             target="_blank"
@@ -127,26 +94,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
             </div>
           </a>
 
-          <a
-            href="https://m.me/twojprofil"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              minWidth: "220px",
-              textAlign: "left",
-              textDecoration: "none",
-              color: "inherit",
-              flexShrink: 0,
-            }}
-          >
-            <div style={{ marginBottom: "16px" }}>
-              <MessengerIcon />
-            </div>
-            <div style={{ fontSize: "20px", fontWeight: 700 }}>{messengerLabel}</div>
-            <div style={{ marginTop: "6px", fontSize: "16px", color: "#b37543" }}>
-              {sendMessageText}
-            </div>
-          </a>
+   
         </div>
       </section>
     </main>
