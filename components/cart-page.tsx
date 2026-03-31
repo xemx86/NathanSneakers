@@ -50,7 +50,7 @@ export function CartPage({ lang }: { lang: Locale }) {
   const t = ui[lang];
 
   /* Numer WhatsApp sklepu bez znaku + */
-  const whatsappNumber = "+19563562096";
+  const whatsappNumber = "+15702390902";
 
   /* Adres strony potrzebny do budowania linków do produktów */
   const siteUrl = "https://nathansneakers.onrender.com";
