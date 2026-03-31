@@ -173,8 +173,7 @@ Link: ${siteUrl}/${lang}/produkt/${item.slug}`;
           <strong>{formatPrice(subtotal)}</strong>
         </div>
 
-        {/* Przycisk checkout */}
-        <CheckoutButton />
+
 
         {/* Przycisk kontaktu przez WhatsApp z gotową treścią koszyka */}
         <a
